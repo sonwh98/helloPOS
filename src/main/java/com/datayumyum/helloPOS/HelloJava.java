@@ -1,4 +1,4 @@
-package jp.leafytree.android.hello;
+package com.datayumyum.helloPOS;
 
 public class HelloJava {
     public String say() {

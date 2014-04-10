@@ -1,4 +1,4 @@
-package jp.leafytree.android.hello;
+package com.datayumyum.helloPOS;
 
 import android.test.ActivityInstrumentationTestCase2;
 

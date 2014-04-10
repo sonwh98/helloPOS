@@ -1,8 +1,8 @@
-package jp.leafytree.android.hello
+package com.datayumyum.helloPOS
 
 import android.test.ActivityInstrumentationTestCase2
-import com.robotium.solo.Solo
 import junit.framework.Assert
+import com.robotium.solo.Solo
 
 class HelloActivityTest extends ActivityInstrumentationTestCase2[HelloActivity](classOf[HelloActivity]) {
   var solo: Solo = _

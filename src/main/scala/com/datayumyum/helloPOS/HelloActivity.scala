@@ -1,4 +1,4 @@
-package jp.leafytree.android.hello
+package com.datayumyum.helloPOS
 
 import android.os.Bundle
 import android.widget.TextView
