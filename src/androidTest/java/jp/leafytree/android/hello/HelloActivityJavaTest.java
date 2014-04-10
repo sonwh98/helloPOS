@@ -21,6 +21,6 @@ public class HelloActivityJavaTest extends ActivityInstrumentationTestCase2<Hell
     }
 
     public void test2() {
-        assertTrue(solo.waitForText("Hello. I'm Java 2!"));
+        assertTrue(solo.waitForText("Hello. I'm Java !"));
     }
 }
