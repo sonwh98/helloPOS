@@ -1,0 +1,38 @@
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:paddingTop="4dip"
+        android:paddingBottom="6dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <TextView android:id="@+id/QUANTITY_CELL"
+              android:layout_width="0dp"
+              android:layout_weight="1"
+              android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal"/>
+
+    <TextView android:id="@+id/DESCRIPTION_CELL"
+              android:layout_width="0dp"
+              android:layout_weight="7"
+              android:layout_marginRight="1dp"
+              android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+              android:layout_height="wrap_content"/>
+
+    <TextView android:id="@+id/PRICE_CELL"
+              android:layout_width="0dp"
+              android:layout_weight="2"
+              android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+              android:layout_height="wrap_content"
+              android:gravity="right"
+            />
+
+    <TextView android:id="@+id/SUB_TOTAL_CELL"
+              android:layout_width="0dp"
+              android:layout_weight="2"
+              android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+              android:layout_height="wrap_content"
+              android:gravity="right"
+            />
+</LinearLayout>

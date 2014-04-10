@@ -1,0 +1,9 @@
+<resources>
+    <color name="white">#FFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="blue">#0000FF</color>
+    <color name="wild_blue">#728CB0</color>
+    <color name="deep_pink">#C296B6</color>
+    <color name="salmon">#EB77A6</color>
+    <color name="background">#0099cc</color>
+</resources>

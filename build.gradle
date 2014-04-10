@@ -46,5 +46,6 @@ dependencies {
     compile 'org.scala-lang:scala-library:2.10.4'
     compile 'com.google.android:support-v4:r7'
     compile 'com.jayway.android.robotium:robotium-solo:5.1'
+    compile files('lib/StarIOPort3.1.jar')
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.1'
 }
