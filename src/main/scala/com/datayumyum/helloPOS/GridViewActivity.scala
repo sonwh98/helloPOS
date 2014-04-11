@@ -20,7 +20,7 @@ class GridViewActivity extends Activity {
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_grid_view)
+    setContentView(R.layout.main_activity)
     ViewServer.get(this).addWindow(this)
 
     def configureCategories() {
