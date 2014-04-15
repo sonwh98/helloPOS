@@ -1,173 +1,170 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@color/background"
-             tools:context="com.datayumyum.pos.GridViewActivity">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="horizontal"
-                  android:layout_width="fill_parent"
-                  android:layout_height="fill_parent" android:baselineAligned="false">
-        <!-- The primary full-screen view. This can be replaced with whatever view
-             is needed to present your content, e.g. VideoView, SurfaceView,
-             TextureView, etc. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent" android:baselineAligned="false">
+    <RelativeLayout android:layout_width="0pt" android:layout_height="match_parent" android:layout_weight="1"
+                    android:background="@color/firstPanel">
         <GridView xmlns:android="http://schemas.android.com/apk/res/android"
                   android:id="@+id/gridview"
-                  android:layout_weight="5"
-                  android:layout_width="0sp"
-                  android:layout_height="fill_parent"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
                   android:columnWidth="90dp"
                   android:numColumns="auto_fit"
                   android:verticalSpacing="10dp"
                   android:horizontalSpacing="10dp"
                   android:stretchMode="columnWidth"
-                  android:gravity="center"
+                  android:background="@color/firstPanel"
                 />
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:orientation="vertical"
-                      android:layout_width="0sp"
-                      android:layout_height="match_parent"
-                      android:layout_weight="3" android:background="@color/wild_blue">
-
+        <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/categoryPanel"
+                android:id="@+id/horizontalScrollView" android:layout_alignParentBottom="true">
             <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/categoryContainer">
 
-                <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textView1"
-                        android:text="Qty"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/white"
-                        android:background="@drawable/back"/>
-
-                <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="6"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="1dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:id="@+id/textView2"
-                        android:text="Description"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/white"
-                        android:background="@drawable/back"/>
-
-                <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:id="@+id/textView3"
-                        android:text="Price"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/white"
-                        android:background="@drawable/back"
-                        android:gravity="right"
-                        />
-
-                <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="2"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:id="@+id/SubTotal"
-                        android:text="SubTotal"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/white"
-                        android:background="@drawable/back"
-                        android:gravity="right"
-                        />
             </LinearLayout>
+        </HorizontalScrollView>
+    </RelativeLayout>
 
-            <ListView
-                    android:id="@+id/lineItemListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:transcriptMode="alwaysScroll"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="0sp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1" android:background="@color/secondPanel">
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView1"
+                    android:text="Qty"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    android:background="@drawable/back"/>
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="6"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="1dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/textView2"
+                    android:text="Description"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    android:background="@drawable/back"/>
+
+            <TextView
+                    android:layout_width="0dp"
                     android:layout_weight="2"
-                    >
-            </ListView>
-            <TextView android:id="@+id/accumulatorDisplay" android:layout_width="match_parent"
-                      android:layout_height="10pt" android:background="@color/white"/>
-            <RelativeLayout android:layout_width="match_parent" android:layout_height="0pt" android:layout_weight="1"
-                            android:gravity="bottom" android:background="@color/deep_pink">
-                <TableLayout android:id="@+id/numberPad" android:layout_width="wrap_content"
-                             android:layout_height="match_parent" android:layout_alignParentLeft="true">
-                    <TableRow>
-                        <Button android:id="@+id/button7" android:text="7"/>
-                        <Button android:id="@+id/button8" android:text="8"/>
-                        <Button android:id="@+id/button9" android:text="9"/>
-                    </TableRow>
-                    <TableRow>
-                        <Button android:id="@+id/button4" android:text="4"/>
-                        <Button android:id="@+id/button5" android:text="5"/>
-                        <Button android:id="@+id/button6" android:text="6"/>
-                    </TableRow>
-                    <TableRow>
-                        <Button android:id="@+id/button1" android:text="1"/>
-                        <Button android:id="@+id/button2" android:text="2"/>
-                        <Button android:id="@+id/button3" android:text="3"/>
-                        <Button android:id="@+id/cashButton" android:text="Cash"/>
-                    </TableRow>
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/textView3"
+                    android:text="Price"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    android:background="@drawable/back"
+                    android:gravity="right"
+                    />
 
-                    <TableRow>
-                        <Button android:id="@+id/button0" android:text="0"/>
-                        <Button android:id="@+id/decimalButton" android:text="."/>
-                        <Button android:id="@+id/clearButton" android:text="Clear"/>
-                        <Button android:id="@+id/creditButton" android:text="Credit"/>
-                    </TableRow>
-                </TableLayout>
-
-                <TableLayout android:layout_width="wrap_content" android:layout_height="match_parent"
-                             android:layout_alignParentRight="true">
-                    <TableRow>
-                        <TextView android:text="Sub Total" android:layout_marginRight="10dp"/>
-                        <TextView android:id="@+id/subTotal" android:text="$0.00"/>
-                    </TableRow>
-                    <TableRow>
-                        <TextView android:text="Tax 8%" android:layout_marginRight="10dp"/>
-                        <TextView android:id="@+id/tax" android:text="$0.00"/>
-                    </TableRow>
-                    <TableRow>
-                        <TextView android:text="Total" android:layout_marginRight="10dp"/>
-                        <TextView android:id="@+id/total" android:text="$0.00"/>
-                    </TableRow>
-                    <TableRow>
-                        <TextView android:text="Tender" android:layout_marginRight="10dp"/>
-                        <TextView android:id="@+id/tender" android:text="$0.00"/>
-                    </TableRow>
-                    <TableRow>
-                        <TextView android:text="Change" android:layout_marginRight="10dp"/>
-                        <TextView android:id="@+id/change" android:text="$0.00"/>
-                    </TableRow>
-                </TableLayout>
-            </RelativeLayout>
-
-
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/SubTotal"
+                    android:text="SubTotal"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/white"
+                    android:background="@drawable/back"
+                    android:gravity="right"
+                    />
         </LinearLayout>
+
+        <ListView
+                android:id="@+id/lineItemListView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:transcriptMode="alwaysScroll"
+                android:layout_weight="2"
+                >
+        </ListView>
+
 
     </LinearLayout>
-    <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/horizontalScrollView" android:layout_gravity="center_horizontal|bottom">
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/categoryContainer">
 
-        </LinearLayout>
-    </HorizontalScrollView>
+    <LinearLayout android:layout_width="0pt" android:layout_height="fill_parent" android:layout_weight="1"
+                  android:orientation="vertical" android:background="@color/thirdPanel">
+        <TextView android:id="@+id/accumulatorDisplay" android:layout_width="match_parent"
+                  android:layout_height="10pt" android:background="@color/white"/>
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="0pt" android:layout_weight="1"
+                        android:gravity="bottom" android:background="@color/deep_pink">
+            <TableLayout android:id="@+id/numberPad" android:layout_width="wrap_content"
+                         android:layout_height="match_parent" android:layout_alignParentLeft="true">
+                <TableRow>
+                    <Button android:id="@+id/button7" android:text="7"/>
+                    <Button android:id="@+id/button8" android:text="8"/>
+                    <Button android:id="@+id/button9" android:text="9"/>
+                </TableRow>
+                <TableRow>
+                    <Button android:id="@+id/button4" android:text="4"/>
+                    <Button android:id="@+id/button5" android:text="5"/>
+                    <Button android:id="@+id/button6" android:text="6"/>
+                </TableRow>
+                <TableRow>
+                    <Button android:id="@+id/button1" android:text="1"/>
+                    <Button android:id="@+id/button2" android:text="2"/>
+                    <Button android:id="@+id/button3" android:text="3"/>
+                    <Button android:id="@+id/cashButton" android:text="Cash"/>
+                </TableRow>
+
+                <TableRow>
+                    <Button android:id="@+id/button0" android:text="0"/>
+                    <Button android:id="@+id/decimalButton" android:text="."/>
+                    <Button android:id="@+id/clearButton" android:text="Clear"/>
+                    <Button android:id="@+id/creditButton" android:text="Credit"/>
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout android:layout_width="wrap_content" android:layout_height="match_parent"
+                         android:layout_alignParentRight="true">
+                <TableRow>
+                    <TextView android:text="Sub Total" android:layout_marginRight="10dp"/>
+                    <TextView android:id="@+id/subTotal" android:text="$0.00"/>
+                </TableRow>
+                <TableRow>
+                    <TextView android:text="Tax 8%" android:layout_marginRight="10dp"/>
+                    <TextView android:id="@+id/tax" android:text="$0.00"/>
+                </TableRow>
+                <TableRow>
+                    <TextView android:text="Total" android:layout_marginRight="10dp"/>
+                    <TextView android:id="@+id/total" android:text="$0.00"/>
+                </TableRow>
+                <TableRow>
+                    <TextView android:text="Tender" android:layout_marginRight="10dp"/>
+                    <TextView android:id="@+id/tender" android:text="$0.00"/>
+                </TableRow>
+                <TableRow>
+                    <TextView android:text="Change" android:layout_marginRight="10dp"/>
+                    <TextView android:id="@+id/change" android:text="$0.00"/>
+                </TableRow>
+            </TableLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
 
 
-</FrameLayout>

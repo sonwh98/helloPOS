@@ -5,5 +5,8 @@
     <color name="wild_blue">#728CB0</color>
     <color name="deep_pink">#C296B6</color>
     <color name="salmon">#EB77A6</color>
-    <color name="background">#0099cc</color>
+    <color name="firstPanel">#61BFF2</color>
+    <color name="secondPanel">#BDF25A</color>
+    <color name="thirdPanel">#F5E553</color>
+    <color name="categoryPanel">#57BE85</color>
 </resources>
