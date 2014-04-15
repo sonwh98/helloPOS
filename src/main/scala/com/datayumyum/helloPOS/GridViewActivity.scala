@@ -13,6 +13,7 @@ import java.text.NumberFormat
 import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.widget
 import android.debug.hv.ViewServer
+import android.view.ViewGroup.LayoutParams
 
 class GridViewActivity extends Activity {
   val TAG = "com.datayumyum.pos.GridViewActivity"
@@ -37,12 +38,13 @@ class GridViewActivity extends Activity {
 
       val categoryContainer = findViewById(R.id.categoryContainer).asInstanceOf[LinearLayout]
       catalog.keySet.foreach((category: String) => {
-        val button = new Button(GridViewActivity.this)
-        button.setText(category)
-        button.setOnClickListener((v: View) => {
+        val categoryButton: Button = new Button(getApplicationContext())
+        categoryButton.setText(category)
+        categoryButton.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 100))
+        categoryButton.setOnClickListener((v: View) => {
           gridView.setAdapter(gridAdapters(category))
         })
-        categoryContainer.addView(button)
+        categoryContainer.addView(categoryButton)
       })
     }
     def configureLineItemView() {
