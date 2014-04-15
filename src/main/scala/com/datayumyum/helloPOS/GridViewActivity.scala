@@ -220,7 +220,7 @@ class GridViewActivity extends Activity {
     override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
       var view = convertView
       if (view == null) {
-        view = inflater.inflate(R.layout.row, null);
+        view = inflater.inflate(R.layout.line_item, null);
         val quantityTextView = view.findViewById(R.id.QUANTITY_CELL)
         val nameTextView = view.findViewById(R.id.DESCRIPTION_CELL)
         val priceTextView = view.findViewById(R.id.PRICE_CELL)
