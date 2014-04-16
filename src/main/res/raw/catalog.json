@@ -77,5 +77,15 @@
             "name": "Tofu sauteed with onions and mushrooms",
             "price": 6.25,
             "imageURL": "http://seattletimes.com/ABPub/2011/02/22/2014301850.jpg"
+        },
+        {
+            "name": "Pho Beef",
+            "price": 6.25,
+            "imageURL": "http://upload.wikimedia.org/wikipedia/commons/5/53/Pho-Beef-Noodles-2008.jpg"
+        },
+        {
+            "name": "BBQ Ribs",
+            "price": 6.25,
+            "imageURL": "http://www.kingofpork.com/wp-content/uploads/2011/10/How-Do-You-BBQ-Ribs.jpg"
         }
     ]}
