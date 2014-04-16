@@ -290,7 +290,7 @@ class GridViewActivity extends Activity {
 
     def animateView(view: View) {
       if (view != null) {
-        val colorFrom: java.lang.Integer = getResources().getColor(R.color.salmon)
+        val colorFrom: java.lang.Integer = getResources().getColor(R.color.wild_blue)
         val colorTo: java.lang.Integer = getResources().getColor(R.color.secondPanel)
         val colorAnimation: ValueAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo).asInstanceOf[ValueAnimator]
         colorAnimation.addUpdateListener(new AnimatorUpdateListener() {
