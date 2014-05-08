@@ -44,7 +44,6 @@ object Printer {
     val status: StarPrinterStatus = getPort.beginCheckedBlock()
     port.writePort(cmd, 0, cmd.length)
     val status2 = getPort.endCheckedBlock()
-    StarIOPort.releasePort(getPort)
   }
 
 
