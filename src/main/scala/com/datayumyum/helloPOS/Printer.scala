@@ -1,8 +1,9 @@
 package com.datayumyum.helloPOS
 
-import com.starmicronics.stario.{StarIOPort, StarPrinterStatus}
+import com.starmicronics.stario.{StarIOPortException, StarIOPort, StarPrinterStatus}
 import java.text.SimpleDateFormat
 import java.util.Date
+import android.util.Log
 
 object Printer {
   val TAG = "com.datayumyum.pos.Printer"
@@ -15,6 +16,8 @@ object Printer {
   val MOVE_HORIZONTAL_TAB: Array[Byte] = Array(' ', 0x09, ' ')
   val BOLD_ON: Array[Byte] = Array(0x1b, 0x45)
   val BOLD_OFF: Array[Byte] = Array(0x1b, 0x46)
+
+  var port: StarIOPort = null
 
   def print(receipt: Receipt) {
     def createHeader(): Array[Byte] = {
@@ -38,12 +41,26 @@ object Printer {
   }
 
   def sendCommand(cmd: Array[Byte]) {
-    val port = StarIOPort.getPort("BT:Star Micronics", "", 1000)
-    Thread.sleep(100)
-    val status: StarPrinterStatus = port.beginCheckedBlock()
+    val status: StarPrinterStatus = getPort.beginCheckedBlock()
     port.writePort(cmd, 0, cmd.length)
-    val status2 = port.endCheckedBlock()
-    StarIOPort.releasePort(port)
+    val status2 = getPort.endCheckedBlock()
+    StarIOPort.releasePort(getPort)
+  }
+
+
+  def getPort: StarIOPort = {
+    if (port == null) {
+      try {
+        val settings = "mini"
+        port = StarIOPort.getPort("BT:Star Micronics", settings, 1000)
+      } catch {
+        case ex: StarIOPortException => {
+          val settings = ""
+          port = StarIOPort.getPort("BT:Star Micronics", settings, 1000)
+        }
+      }
+    }
+    port
   }
 
   def cutPaper() {
