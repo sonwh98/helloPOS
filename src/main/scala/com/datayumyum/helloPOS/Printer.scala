@@ -12,7 +12,7 @@ object Printer {
 
   def print(receipt: Receipt) {
     val paint: Paint = new Paint
-    paint.setStyle(Paint.Style.FILL)
+    paint.setStyle(Paint.Style.STROKE)
     paint.setColor(Color.BLACK)
     paint.setAntiAlias(true)
     var style: Int = 0
@@ -32,28 +32,21 @@ object Printer {
       val headerBitmap: Bitmap = Bitmap.createBitmap(headerLayout.getWidth, headerLayout.getHeight, Bitmap.Config.RGB_565)
       val c: Canvas = new Canvas(headerBitmap)
       c.drawColor(Color.WHITE)
-      c.translate(0, 0)
-      c.drawLine(0.0f, headerLayout.getHeight, headerLayout.getWidth, headerLayout.getHeight, textpaint)
+      //      c.drawLine(0.0f, headerLayout.getHeight, headerLayout.getWidth, headerLayout.getHeight, textpaint)
       headerLayout.draw(c)
+      c.drawRect(0f, 0f, paperWidth, headerLayout.getHeight, textpaint)
       val starbitmap = new StarBitmap(headerBitmap, false, paperWidth)
       starbitmap.getImageEscPosDataForPrinting(compression, pageMode)
     }
 
     def createBodyCmd(): Array[Byte] = {
-      val body = receipt.lineItems.map {
-        case (quantity, item) => {
-          f"$quantity%s ${item.name} ${item.price * quantity}"
-        }
-      }.mkString("\n")
-
-      //      val bodyLayout: StaticLayout = new StaticLayout(body, textpaint, paperWidth, Layout.Alignment.ALIGN_NORMAL, 1, 0, false)
       val paperHeight = receipt.lineItems.size * textSize
       val bodyBitMap = Bitmap.createBitmap(paperWidth, paperHeight, Bitmap.Config.RGB_565)
       val canvas = new Canvas(bodyBitMap)
       canvas.drawColor(Color.WHITE)
-      canvas.translate(0, 0)
+      canvas.drawRect(0.0f, 0.0f, paperWidth, paperHeight, textpaint)
       var x = 0.0f
-      var y = 0.0f
+      var y = textSize
       receipt.lineItems.foreach {
         lineItem =>
           val quantity: Int = lineItem._1
@@ -81,7 +74,7 @@ object Printer {
 
     val headerCmd = createHeaderCmd()
     val bodyCmd = createBodyCmd()
-    val NEW_LINES: Array[Byte] = "\n\n\n\n".getBytes()
+    val NEW_LINES: Array[Byte] = "\n\n".getBytes()
     sendCommand(headerCmd ++ bodyCmd ++ NEW_LINES)
   }
 
