@@ -32,7 +32,6 @@ object Printer {
       val headerBitmap: Bitmap = Bitmap.createBitmap(headerLayout.getWidth, headerLayout.getHeight, Bitmap.Config.RGB_565)
       val c: Canvas = new Canvas(headerBitmap)
       c.drawColor(Color.WHITE)
-      //      c.drawLine(0.0f, headerLayout.getHeight, headerLayout.getWidth, headerLayout.getHeight, textpaint)
       headerLayout.draw(c)
       c.drawRect(0f, 0f, paperWidth, headerLayout.getHeight, textpaint)
       val starbitmap = new StarBitmap(headerBitmap, false, paperWidth)
@@ -72,10 +71,33 @@ object Printer {
       starBodyBitmap.getImageEscPosDataForPrinting(compression, pageMode)
     }
 
+    def createFooterCmd(): Array[Byte] = {
+      val lines = List("Sub Total", "Tax 8%", "Total", "Tender", "Change")
+      val bitmapHeight = lines.size * textSize
+      val footerBitMap = Bitmap.createBitmap(paperWidth, bitmapHeight, Bitmap.Config.RGB_565)
+      val canvas = new Canvas(footerBitMap)
+      canvas.drawColor(Color.WHITE)
+      canvas.translate(0, 0)
+
+      val subTotalStr: String = "Sub Total %.2f".format(receipt.subTotal)
+      val taxStr: String = s"Tax ${receipt.tax.toString}"
+      val totalStr: String = "Total %.2f".format(receipt.total)
+      val x = paperWidth - textpaint.measureText(subTotalStr)
+      var y = textSize
+      canvas.drawText(subTotalStr, x, y, textpaint)
+
+      y = y + textSize
+      canvas.drawText(taxStr, x, y, textpaint)
+      y = y + textSize
+      canvas.drawText(totalStr, x, y, textpaint)
+      val starBitmap = new StarBitmap(footerBitMap, false, paperWidth)
+      starBitmap.getImageEscPosDataForPrinting(compression, pageMode)
+    }
     val headerCmd = createHeaderCmd()
     val bodyCmd = createBodyCmd()
+    val footerCmd = createFooterCmd()
     val NEW_LINES: Array[Byte] = "\n\n".getBytes()
-    sendCommand(headerCmd ++ bodyCmd ++ NEW_LINES)
+    sendCommand(headerCmd ++ bodyCmd ++ footerCmd ++ NEW_LINES)
   }
 
   def sendCommand(cmd: Array[Byte]) {

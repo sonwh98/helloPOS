@@ -266,20 +266,16 @@ class GridViewActivity extends Activity {
     }
 
     def calculateSubTotal(): Double = {
-      lineItems.map {
-        case (quantity, item) => {
-          quantity * item.price
-        }
-      }.sum
+      Util.sumLineItems(lineItems)
     }
 
     def calculateTax(): Double = {
       val taxRate = 0.08
-      taxRate * calculateSubTotal()
+      Util.calculateTax(taxRate, calculateSubTotal())
     }
 
     def calculateTotal(): Double = {
-      calculateSubTotal + calculateTax
+      calculateSubTotal() + calculateTax()
     }
 
     def displayTotals() {
