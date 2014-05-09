@@ -1,9 +1,6 @@
 package com.datayumyum.helloPOS
 
 import com.starmicronics.stario.{StarIOPortException, StarIOPort, StarPrinterStatus}
-import java.text.SimpleDateFormat
-import java.util.Date
-import android.util.Log
 import android.text.{TextPaint, Layout, StaticLayout}
 import android.graphics._
 import com.StarMicronics.StarIOSDK.StarBitmap
