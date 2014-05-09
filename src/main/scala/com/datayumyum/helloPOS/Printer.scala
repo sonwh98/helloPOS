@@ -46,12 +46,32 @@ object Printer {
         }
       }.mkString("\n")
 
-      val bodyLayout: StaticLayout = new StaticLayout(body, textpaint, paperWidth, Layout.Alignment.ALIGN_NORMAL, 1, 0, false)
-      val bodyBitMap = Bitmap.createBitmap(bodyLayout.getWidth, bodyLayout.getHeight, Bitmap.Config.RGB_565)
-      val c1 = new Canvas(bodyBitMap)
-      c1.drawColor(Color.WHITE)
-      c1.translate(0, 0)
-      bodyLayout.draw(c1)
+      //      val bodyLayout: StaticLayout = new StaticLayout(body, textpaint, paperWidth, Layout.Alignment.ALIGN_NORMAL, 1, 0, false)
+      val paperHeight = receipt.lineItems.size * textSize
+      val bodyBitMap = Bitmap.createBitmap(paperWidth, paperHeight, Bitmap.Config.RGB_565)
+      val canvas = new Canvas(bodyBitMap)
+      canvas.drawColor(Color.WHITE)
+      canvas.translate(0, 0)
+      var x = 0.0f
+      var y = 0.0f
+      receipt.lineItems.foreach {
+        lineItem =>
+          val quantity: Int = lineItem._1
+          val item: Item = lineItem._2
+          val subTotal = item.price * quantity
+          val quantityStr: String = quantity.toString
+          canvas.drawText(quantityStr, x, y, textpaint)
+
+          x = x + textpaint.measureText(quantityStr)
+          canvas.drawText(item.name, x, y, textpaint)
+
+          x = x + textpaint.measureText(item.name)
+          canvas.drawText(subTotal.toString, x, y, textpaint)
+
+          y = y + textSize
+          x = 0
+      }
+
       val starBodyBitmap = new StarBitmap(bodyBitMap, false, paperWidth)
       starBodyBitmap.getImageEscPosDataForPrinting(compression, pageMode)
     }
