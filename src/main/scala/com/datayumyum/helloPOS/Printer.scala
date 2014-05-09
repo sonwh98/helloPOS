@@ -59,14 +59,17 @@ object Printer {
           val quantity: Int = lineItem._1
           val item: Item = lineItem._2
           val subTotal = item.price * quantity
+
           val quantityStr: String = quantity.toString
           canvas.drawText(quantityStr, x, y, textpaint)
 
-          x = x + textpaint.measureText(quantityStr)
+          val padding = 2
+          x = x + textpaint.measureText(quantityStr) + padding
           canvas.drawText(item.name, x, y, textpaint)
 
-          x = x + textpaint.measureText(item.name)
-          canvas.drawText(subTotal.toString, x, y, textpaint)
+          val subTotalStr: String = "%.2f".format(subTotal)
+          x = paperWidth - textpaint.measureText(subTotalStr)
+          canvas.drawText(subTotalStr, x, y, textpaint)
 
           y = y + textSize
           x = 0
