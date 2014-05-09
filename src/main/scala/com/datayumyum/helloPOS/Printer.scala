@@ -80,14 +80,22 @@ object Printer {
       canvas.translate(0, 0)
 
       val subTotalStr: String = "Sub Total %.2f".format(receipt.subTotal)
-      val taxStr: String = s"Tax ${receipt.tax.toString}"
+      val taxAmountStr: String = "%.2f".format(receipt.tax)
       val totalStr: String = "Total %.2f".format(receipt.total)
-      val x = paperWidth - textpaint.measureText(subTotalStr)
+      val subTotalStrSize: Float = textpaint.measureText(subTotalStr)
+      val subTotalTextSize: Float = textpaint.measureText("Sub Total")
+      var x = paperWidth - subTotalStrSize
       var y = textSize
       canvas.drawText(subTotalStr, x, y, textpaint)
 
       y = y + textSize
-      canvas.drawText(taxStr, x, y, textpaint)
+      x = (paperWidth - subTotalStrSize) + subTotalTextSize - textpaint.measureText("Tax %8")
+      canvas.drawText("Tax %8", x, y, textpaint)
+
+      x = paperWidth - textpaint.measureText(taxAmountStr)
+      canvas.drawText(taxAmountStr, x, y, textpaint)
+
+      x = paperWidth - textpaint.measureText(totalStr)
       y = y + textSize
       canvas.drawText(totalStr, x, y, textpaint)
       val starBitmap = new StarBitmap(footerBitMap, false, paperWidth)
