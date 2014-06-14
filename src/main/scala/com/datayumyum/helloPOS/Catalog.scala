@@ -10,7 +10,7 @@ object Catalog {
     val menu: mutable.HashMap[String, List[Item]] = mutable.HashMap.empty[String, List[Item]]
     for ((category, mapList) <- parsedMap) {
       val itemList = mapList.map(m => {
-        Item(m("name").asInstanceOf[String], m("imageURL").asInstanceOf[String], m("price").asInstanceOf[Double])
+        Item(m("name").asInstanceOf[String], m("image-url").asInstanceOf[String], m("price").asInstanceOf[Double])
       })
       menu(category) = itemList
     }

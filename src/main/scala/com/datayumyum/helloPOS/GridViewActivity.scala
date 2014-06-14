@@ -14,6 +14,7 @@ import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.widget
 import android.debug.hv.ViewServer
 import android.view.ViewGroup.LayoutParams
+import java.net.URL
 
 class GridViewActivity extends Activity {
   val TAG = "com.datayumyum.pos.GridViewActivity"
@@ -25,7 +26,7 @@ class GridViewActivity extends Activity {
     ViewServer.get(this).addWindow(this)
 
     def configureCategories() {
-      val jsonStr: String = Source.fromInputStream(getResources.openRawResource(R.raw.catalog)).mkString
+      val jsonStr: String = Source.fromInputStream(new URL("http://jedi.kaicode.com:3000/pos/catalog/17592186045418").openStream).mkString
       val catalog: mutable.HashMap[String, List[Item]] = Catalog.from(jsonStr)
       val gridAdapters: mutable.HashMap[String, GridAdapter] = catalog.map(entry => {
         val categoryName: String = entry._1
@@ -33,19 +34,21 @@ class GridViewActivity extends Activity {
         (categoryName, new GridAdapter(itemInCategory))
       })
 
-      val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
-      gridView.setAdapter(gridAdapters("Entrees"))
+      uiThread {
+        val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
+        gridView.setAdapter(gridAdapters("Platters"))
 
-      val categoryContainer = findViewById(R.id.categoryContainer).asInstanceOf[LinearLayout]
-      catalog.keySet.foreach((category: String) => {
-        val categoryButton: Button = new Button(getApplicationContext())
-        categoryButton.setText(category)
-        categoryButton.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 100))
-        categoryButton.setOnClickListener((v: View) => {
-          gridView.setAdapter(gridAdapters(category))
+        val categoryContainer = findViewById(R.id.categoryContainer).asInstanceOf[LinearLayout]
+        catalog.keySet.foreach((category: String) => {
+          val categoryButton: Button = new Button(getApplicationContext())
+          categoryButton.setText(category)
+          categoryButton.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 100))
+          categoryButton.setOnClickListener((v: View) => {
+            gridView.setAdapter(gridAdapters(category))
+          })
+          categoryContainer.addView(categoryButton)
         })
-        categoryContainer.addView(categoryButton)
-      })
+      }
     }
     def configureLineItemView() {
       val listView: ListView = findViewById(R.id.lineItemListView).asInstanceOf[ListView]
@@ -99,7 +102,9 @@ class GridViewActivity extends Activity {
       creditButton.setOnClickListener(submitOrder)
 
     }
-    configureCategories()
+    thread {
+      configureCategories()
+    }
     configureLineItemView()
     configureNumberPad()
   }
