@@ -1,91 +1,170 @@
 {"Sandwiches": [
     {
-        "price": 5.00,
-        "name": "Philly Cheese Steak",
-        "imageURL": "http://cdn.sheknows.com/articles/philly-cheese-steak.jpg"
+        "name": "Vietnamese Ham",
+        "price": 4.95,
+        "image-url": "http://www.flaticon.com/png/256/45787.png"
     },
     {
-        "price": 5.00,
-        "name": "Tuna Sub",
-        "imageURL": "http://www.bubblews.com/assets/images/news/1498750761_1372376503.jpg"
+        "name": "Vietnamese Meat",
+        "price": 4.95,
+        "image-url": "http://www.flaticon.com/png/256/45787.png"
     },
     {
-        "price": 5.00,
-        "name": "Meatball Hero",
-        "imageURL": "http://2.bp.blogspot.com/-sWiupXPxVlw/T29l6-vZcNI/AAAAAAAAEdc/74kaeoFGV0I/s1600/ParmMeatballHero.jpg"
+        "name": "House Special",
+        "price": 4.95,
+        "image-url": "http://www.flaticon.com/png/256/45787.png"
     },
     {
-        "price": 5.50,
-        "name": "Italian Sub",
-        "imageURL": "http://3.bp.blogspot.com/_pwrKRcgY4w4/TQX5_qYKPNI/AAAAAAAAAj4/gxfFGiw4QvQ/s1600/Italian+sub.jpg"
+        "name": "BBQ Pork",
+        "price": 4.95,
+        "image-url": "http://www.flaticon.com/png/256/45787.png"
+    },
+    {
+        "name": "Lemongrass Tofu",
+        "price": 4.95,
+        "image-url": "http://www.flaticon.com/png/256/45787.png"
+    },
+    {
+        "name": "Vietnamese Grilled Pork",
+        "price": 4.95,
+        "image-url": "http://www.flaticon.com/png/256/45787.png"
+    },
+    {
+        "name": "Tofu",
+        "price": 4.95,
+        "image-url": "http://www.flaticon.com/png/256/45787.png"
+    },
+    {
+        "name": "Lemongrass Chicken",
+        "price": 4.95,
+        "image-url": "http://www.flaticon.com/png/256/45787.png"
+    },
+    {
+        "name": "Lemongrass Beef",
+        "price": 4.95,
+        "image-url": "http://www.flaticon.com/png/256/45787.png"
     }
-], "Drinks": [
+], "Platters": [
     {
-        "price": 2.00,
-        "name": "Coke",
-        "imageURL": "http://www.popandroll.com/coke-art/Coca-Cola-Art_Coke_Bottle4.jpg"
+        "name": "Lemongrass Chicken",
+        "price": 6.25,
+        "image-url": "http://www.flaticon.com/png/256/35194.png"
     },
     {
-        "price": 2.00,
+        "name": "Lemongrass Beef",
+        "price": 6.25,
+        "image-url": "http://www.flaticon.com/png/256/35194.png"
+    },
+    {
+        "name": "Tofu",
+        "price": 6.25,
+        "image-url": "http://www.flaticon.com/png/256/35194.png"
+    },
+    {
+        "name": "Vietnamese Meat",
+        "price": 6.25,
+        "image-url": "http://www.flaticon.com/png/256/35194.png"
+    },
+    {
+        "name": "Lemongrass Tofu",
+        "price": 6.25,
+        "image-url": "http://www.flaticon.com/png/256/35194.png"
+    },
+    {
+        "name": "Vietnamese Grilled Pork",
+        "price": 6.25,
+        "image-url": "http://www.flaticon.com/png/256/35194.png"
+    },
+    {
+        "name": "Vietnamese Ham",
+        "price": 6.25,
+        "image-url": "http://www.flaticon.com/png/256/35194.png"
+    },
+    {
+        "name": "Lemongrass Pork Chop",
+        "price": 6.25,
+        "image-url": "http://www.flaticon.com/png/256/35194.png"
+    },
+    {
+        "name": "BBQ Pork",
+        "price": 5.25,
+        "image-url": "http://www.flaticon.com/png/256/35194.png"
+    }
+], "Hot Drinks": [
+    {
+        "name": "Lemon Tea",
+        "price": 1.1,
+        "image-url": "http://www.flaticon.com/png/256/37908.png"
+    },
+    {
+        "name": "Honey Lemon Tea",
+        "price": 1.5,
+        "image-url": "http://www.flaticon.com/png/256/37908.png"
+    },
+    {
+        "name": "Ying Yang",
+        "price": 1.1,
+        "image-url": "http://www.flaticon.com/png/256/37908.png"
+    },
+    {
         "name": "Green Tea",
-        "imageURL": "http://www.deltalabsusa.com/assets/client_files/images/Photos/Food%20and%20Drink/green-tea.jpg"
+        "price": 1.25,
+        "image-url": "http://www.flaticon.com/png/256/37908.png"
     },
     {
-        "price": 2.50,
-        "name": "Bubble Tea",
-        "imageURL": "http://images2.fanpop.com/images/photos/7500000/bubble-tea-heaven-bubble-tea-7520452-284-367.jpg"
+        "name": "Vietnamese Coffee",
+        "price": 1.5,
+        "image-url": "http://www.flaticon.com/png/256/37908.png"
+    },
+    {
+        "name": "Milk Tea",
+        "price": 1.0,
+        "image-url": "http://www.flaticon.com/png/256/37908.png"
     }
-],
-    "Entrees": [
-        {
-            "name": "Lemongrass Chicken",
-            "price": 6.25,
-            "imageURL": "http://2.bp.blogspot.com/-YBjJBEkm6PA/Tc2YoacJvbI/AAAAAAAAABI/Ybd6kx1VmqE/s1600/Bahn%2BMi%2BFinal%2B5%2B11.jpg"
-        },
-        {
-            "name": "Lemongrass Beef",
-            "price": 6.25,
-            "imageURL": "http://www.vietworldkitchen.com/.a/6a00d8341ef22f53ef0115702b758d970c-500pi"
-
-        },
-        {
-            "name": "Lemongrass Pork Chop",
-            "price": 6.25,
-            "imageURL": "http://www.yaleaasa.org/blog/wp-content/uploads/2010/10/banh-mi.jpg"
-        },
-        {
-            "name": "Vietnamese Grilled Pork",
-            "price": 6.25,
-            "imageURL": "http://1.bp.blogspot.com/-PA0ABukMTW0/T_u1-CwIirI/AAAAAAAAATc/KH3IE3fBtOw/s1600/DSC_0161.JPG"
-        },
-        {
-            "name": "Vietnamese Ham",
-            "price": 6.25,
-            "imageURL": "http://almostveganinparadise.files.wordpress.com/2009/06/bahn-mi.jpg"
-        },
-        {
-            "name": "Vietnamese Meat",
-            "price": 6.25,
-            "imageURL": "http://graphics8.nytimes.com/images/2004/12/01/fashion/01hero.xl.jpg"
-        },
-        {
-            "name": "Lemongrass Tofu",
-            "price": 6.25,
-            "imageURL": "http://www.jimmysvietnamesesandwichbar.com/images/VietnameseSpringRolls.jpg"
-        },
-        {
-            "name": "Tofu sauteed with onions and mushrooms",
-            "price": 6.25,
-            "imageURL": "http://seattletimes.com/ABPub/2011/02/22/2014301850.jpg"
-        },
-        {
-            "name": "Pho Beef",
-            "price": 6.25,
-            "imageURL": "http://upload.wikimedia.org/wikipedia/commons/5/53/Pho-Beef-Noodles-2008.jpg"
-        },
-        {
-            "name": "BBQ Ribs",
-            "price": 6.25,
-            "imageURL": "http://www.kingofpork.com/wp-content/uploads/2011/10/How-Do-You-BBQ-Ribs.jpg"
-        }
-    ]}
+], "Cold Drinks": [
+    {
+        "name": "Bottled Soda",
+        "price": 1.5,
+        "image-url": "http://www.flaticon.com/png/256/11098.png"
+    },
+    {
+        "name": "Bottled Water",
+        "price": 1.0,
+        "image-url": "http://www.flaticon.com/png/256/11098.png"
+    },
+    {
+        "name": "Soda",
+        "price": 0.75,
+        "image-url": "http://www.flaticon.com/png/256/11098.png"
+    },
+    {
+        "name": "Snapple Ice Tea",
+        "price": 1.0,
+        "image-url": "http://www.flaticon.com/png/256/11098.png"
+    },
+    {
+        "name": "Iced Lemon Tea",
+        "price": 2.0,
+        "image-url": "http://www.flaticon.com/png/256/11098.png"
+    },
+    {
+        "name": "Iced Honey Lemon Tea",
+        "price": 2.5,
+        "image-url": "http://www.flaticon.com/png/256/11098.png"
+    },
+    {
+        "name": "Iced Milk Tea",
+        "price": 1.75,
+        "image-url": "http://www.flaticon.com/png/256/11098.png"
+    },
+    {
+        "name": "Iced Ying Yang",
+        "price": 2.0,
+        "image-url": "http://www.flaticon.com/png/256/11098.png"
+    },
+    {
+        "name": "Vietnamese Iced Coffee",
+        "price": 2.5,
+        "image-url": "http://www.flaticon.com/png/256/11098.png"
+    }
+]}
