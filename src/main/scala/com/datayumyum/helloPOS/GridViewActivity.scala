@@ -72,12 +72,17 @@ class GridViewActivity extends Activity {
       val buttonIdList = List(R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7,
         R.id.button8, R.id.button9, R.id.decimalButton)
       buttonIdList.foreach {
-        id => {
+        id =>
           val button = findViewById(id).asInstanceOf[Button]
           button.setOnClickListener((v: View) => {
             Accumulator.push(button.getText().toString())
           })
-        }
+      }
+      val allButtons = buttonIdList ++ List(R.id.clearButton, R.id.cashButton, R.id.creditButton)
+      allButtons.foreach {
+        id =>
+          val button = findViewById(id).asInstanceOf[Button]
+          button.setPadding(50, 50, 50, 50)
       }
 
       findViewById(R.id.clearButton).setOnClickListener {
