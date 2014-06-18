@@ -17,8 +17,8 @@ val exclusive = false
 val autoDelete = true
 channel.queueDeclare(queueName, durable, exclusive, autoDelete, null)
 val message = "一儿三四五六七八九十啊吧色:::0:::20:::365:::40"
-
-channel.basicPublish("", queueName, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes())
+//val message="hello"
+channel.basicPublish("", queueName, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes("UTF-8"))
 channel.close()
 connection.close()
 println("foo")
