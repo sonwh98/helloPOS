@@ -26,7 +26,7 @@ class GridViewActivity extends Activity {
     ViewServer.get(this).addWindow(this)
 
     def configureCategories() {
-      val jsonStr: String = Source.fromInputStream(new URL("http://jedi.kaicode.com:3000/pos/catalog/17592186045418").openStream).mkString
+      val jsonStr: String = Source.fromInputStream(new URL("http://hive.kaicode.com:3000/pos/catalog/17592186045418").openStream).mkString
       val catalog: mutable.HashMap[String, List[Item]] = Catalog.from(jsonStr)
       val gridAdapters: mutable.HashMap[String, GridAdapter] = catalog.map(entry => {
         val categoryName: String = entry._1
@@ -217,6 +217,7 @@ class GridViewActivity extends Activity {
     val inflater: LayoutInflater = getLayoutInflater()
     var reset: Boolean = true
 
+
     override def getCount: Int = {
       return lineItems.size
     }
@@ -319,7 +320,10 @@ class GridViewActivity extends Activity {
       val store = Store("QT Sandwich", Address("48 N 10th St", "Philadelphia", "PA", "19107"), "(267)639-4520", "http://www.qtshop.com")
       thread {
         try {
-          Printer.print(Receipt(store, lineItems.toList))
+          val receipt: Receipt = Receipt(store, lineItems.toList)
+          val receiptEdnString: String = receipt.toEdn()
+          OrderMessenger.sendOrder(receiptEdnString)
+          Printer.print(receipt)
           uiThread {
             clear()
           }

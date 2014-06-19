@@ -12,4 +12,8 @@ case class Receipt(store: Store, lineItems: List[(Int, Item)]) {
   def total: Double = {
     subTotal + tax
   }
+
+  def toEdn(): String = {
+    store.name
+  }
 }
