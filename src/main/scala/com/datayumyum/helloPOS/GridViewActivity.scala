@@ -27,15 +27,15 @@ class GridViewActivity extends Activity {
     ViewServer.get(this).addWindow(this)
 
     def configureCategories() {
-//      val storeJsonStr: String = Source.fromInputStream(new URL("http://hive.kaicode.com:3000/pos/store/17592186045418").openStream).mkString
-//      store = Some(Store.from(storeJsonStr))
-      val jsonStr: String = Source.fromInputStream(new URL("http://hive.kaicode.com:3000/pos/catalog/17592186045418").openStream).mkString
-      val catalog: mutable.HashMap[String, List[Item]] = Catalog.from(jsonStr)
-      val gridAdapters: mutable.HashMap[String, GridAdapter] = catalog.map(entry => {
+      val storeJsonStr: String = Source.fromInputStream(new URL("http://hive.kaicode.com:3000/pos/store/17592186045418").openStream).mkString
+      store = Some(Store.from(storeJsonStr))
+
+      val catalog: Map[String, List[Item]] = store.get.catalog
+      val gridAdapters: Map[String, GridAdapter] = catalog.map { entry =>
         val categoryName: String = entry._1
         val itemInCategory: List[Item] = entry._2
         (categoryName, new GridAdapter(itemInCategory))
-      })
+      }
 
       uiThread {
         val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
