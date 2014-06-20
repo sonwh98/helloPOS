@@ -1,5 +1,9 @@
 import java.net.URL
+import java.util
 
+import com.datayumyum.helloPOS.Item
+
+import scala.collection.mutable
 import scala.io.Source
 import scala.util.parsing.json.JSON
 
@@ -7,12 +11,23 @@ val storeJson = Source.fromInputStream(new URL("http://hive.kaicode.com:3000/pos
 val result: Option[Any] = JSON.parseFull(storeJson)
 val store = result.get.asInstanceOf[Map[String, Any]]
 val address = store("address").asInstanceOf[Map[String, String]]
-val catalogList = store("catalog").asInstanceOf[List[Map[String, Any]]]
-val categories = catalogList.map { category: Map[String, Any] =>
-  category("category/name")
+val catalog = store("catalog").asInstanceOf[List[Map[String, Any]]]
+
+var categories = new mutable.HashMap[String, List[Item]]
+catalog.foreach { category: Map[String, Any] =>
+  val name = category("category/name").asInstanceOf[String]
+  val products: List[Map[String, Any]] = category("category/products").asInstanceOf[List[Map[String, Any]]]
+  val itemList = products.map { product: Map[String, Any] =>
+    val name: String = product("product/name").asInstanceOf[String]
+    val sku: String = product("product/sku").asInstanceOf[String]
+    val price: Double = product("product/price").asInstanceOf[Double]
+    Item(name, sku, price)
+  }
+  categories(name) = itemList
 }
+
 println(categories)
-val sandwiches = catalogList(0)
+val sandwiches = catalog(0)
 val products = sandwiches("category/products").asInstanceOf[List[Map[String, Any]]]
 //println(sandwiches("category/name"))
 //println(products)

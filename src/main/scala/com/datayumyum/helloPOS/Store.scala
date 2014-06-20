@@ -1,5 +1,6 @@
 package com.datayumyum.helloPOS
 
+import scala.collection.mutable
 import scala.util.parsing.json.JSON
 
 case class Store(name: String, address: Address, phone: String, url: String, catalog: Map[String, List[Item]]) {
@@ -20,11 +21,19 @@ object Store {
     val url = storeMap("url").asInstanceOf[String]
 
     val catalogList = storeMap("catalog").asInstanceOf[List[Map[String, Any]]]
-    val sandwiches = catalogList(0)
-    val categories = catalogList.map { cat: Map[String, Any] =>
 
+    var catalog = new mutable.HashMap[String, List[Item]]
+    catalogList.foreach { category: Map[String, Any] =>
+      val name = category("category/name").asInstanceOf[String]
+      val products: List[Map[String, Any]] = category("category/products").asInstanceOf[List[Map[String, Any]]]
+      val itemList = products.map { product: Map[String, Any] =>
+        val name: String = product("product/name").asInstanceOf[String]
+        val sku: String = product("product/sku").asInstanceOf[String]
+        val price: Double = product("product/price").asInstanceOf[Double]
+        Item(name, sku, price)
+      }
+      catalog(name) = itemList
     }
-    val products = sandwiches("category/products").asInstanceOf[List[Map[String, Any]]]
-    new Store(name = name, address = address, phone = phone, url = url, catalog)
+    new Store(name = name, address = address, phone = phone, url = url, catalog.toMap)
   }
 }
