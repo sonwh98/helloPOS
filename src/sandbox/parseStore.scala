@@ -7,8 +7,12 @@ val storeJson = Source.fromInputStream(new URL("http://hive.kaicode.com:3000/pos
 val result: Option[Any] = JSON.parseFull(storeJson)
 val store = result.get.asInstanceOf[Map[String, Any]]
 val address = store("address").asInstanceOf[Map[String, String]]
-val catalog = store("catalog").asInstanceOf[List[Map[String, Any]]]
-val sandwiches = catalog(0)
+val catalogList = store("catalog").asInstanceOf[List[Map[String, Any]]]
+val categories = catalogList.map { category: Map[String, Any] =>
+  category("category/name")
+}
+println(categories)
+val sandwiches = catalogList(0)
 val products = sandwiches("category/products").asInstanceOf[List[Map[String, Any]]]
 //println(sandwiches("category/name"))
 //println(products)
@@ -19,4 +23,4 @@ val stuff = products.map { product: Map[String, Any] =>
   (name, sku, price)
 }
 
-println(stuff)
+println(address)

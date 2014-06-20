@@ -13,6 +13,9 @@ buildscript {
 
 repositories {
     mavenCentral()
+    maven {
+        url "http://oss.sonatype.org/content/repositories/snapshots/"
+    }
 }
 
 apply plugin: 'android'
@@ -46,7 +49,8 @@ dependencies {
     compile 'org.scala-lang:scala-library:2.10.4'
     compile 'com.google.android:support-v4:r7'
     compile 'com.rabbitmq:amqp-client:3.3.2'
+    compile 'io.github.martintrojer:edn-scala_2.10:0.1-SNAPSHOT'
     compile 'com.jayway.android.robotium:robotium-solo:5.1'
     compile files('lib/StarIOPort3.1.jar')
-    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.1'
+//    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.1'
 }

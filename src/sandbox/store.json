@@ -1,0 +1,241 @@
+{"groups": [
+    {
+        "group/members": [
+            {
+                "user/last-name": "Tran",
+                "user/first-name": "Annie",
+                "password": "6c81243028f8e455fa617dd5f0232ce1",
+                "email": "annieha4@yahoo.com"
+            },
+            {
+                "user/last-name": "To",
+                "user/first-name": "Sonny",
+                "password": "3858f62230ac3c915f300c664312c63f",
+                "email": "son.c.to@gmail.com"
+            }
+        ],
+        "group/name": "cashier"
+    },
+    {
+        "group/members": [
+            {
+                "user/last-name": "Tran",
+                "user/first-name": "Annie",
+                "password": "6c81243028f8e455fa617dd5f0232ce1",
+                "email": "annieha4@yahoo.com"
+            }
+        ],
+        "group/name": "manager"
+    },
+    {
+        "group/members": [
+            {
+                "user/last-name": "Tran",
+                "user/first-name": "Annie",
+                "password": "6c81243028f8e455fa617dd5f0232ce1",
+                "email": "annieha4@yahoo.com"
+            },
+            {
+                "user/last-name": "To",
+                "user/first-name": "Sonny",
+                "password": "3858f62230ac3c915f300c664312c63f",
+                "email": "son.c.to@gmail.com"
+            }
+        ],
+        "group/name": "admin"
+    }
+], "catalog": [
+    {
+        "category/products": [
+            {
+                "product/price": 4.95,
+                "product/sku": "3",
+                "product/name": "Vietnamese Ham"
+            },
+            {
+                "product/price": 4.95,
+                "product/sku": "4",
+                "product/name": "Vietnamese Meat"
+            },
+            {
+                "product/price": 4.95,
+                "product/sku": "1",
+                "product/name": "House Special"
+            },
+            {
+                "product/price": 4.95,
+                "product/sku": "2",
+                "product/name": "BBQ Pork"
+            },
+            {
+                "product/price": 4.95,
+                "product/sku": "9",
+                "product/name": "Lemongrass Tofu"
+            },
+            {
+                "product/price": 4.95,
+                "product/sku": "7",
+                "product/name": "Vietnamese Grilled Pork"
+            },
+            {
+                "product/description": "Tofu sauteed with onions and mushrooms",
+                "product/price": 4.95,
+                "product/sku": "8",
+                "product/name": "Tofu"
+            },
+            {
+                "product/price": 4.95,
+                "product/sku": "5",
+                "product/name": "Lemongrass Chicken"
+            },
+            {
+                "product/price": 4.95,
+                "product/sku": "6",
+                "product/name": "Lemongrass Beef"
+            }
+        ],
+        "category/name": "Sandwiches"
+    },
+    {
+        "category/products": [
+            {
+                "product/price": 6.25,
+                "product/sku": "10",
+                "product/name": "Lemongrass Chicken"
+            },
+            {
+                "product/price": 6.25,
+                "product/sku": "11",
+                "product/name": "Lemongrass Beef"
+            },
+            {
+                "product/description": "Tofu sauteed with onions and mushrooms",
+                "product/price": 6.25,
+                "product/sku": "18",
+                "product/name": "Tofu"
+            },
+            {
+                "product/price": 6.25,
+                "product/sku": "16",
+                "product/name": "Vietnamese Meat"
+            },
+            {
+                "product/price": 6.25,
+                "product/sku": "17",
+                "product/name": "Lemongrass Tofu"
+            },
+            {
+                "product/price": 6.25,
+                "product/sku": "14",
+                "product/name": "Vietnamese Grilled Pork"
+            },
+            {
+                "product/price": 6.25,
+                "product/sku": "15",
+                "product/name": "Vietnamese Ham"
+            },
+            {
+                "product/price": 6.25,
+                "product/sku": "12",
+                "product/name": "Lemongrass Pork Chop"
+            },
+            {
+                "product/price": 5.25,
+                "product/sku": "13",
+                "product/name": "BBQ Pork"
+            }
+        ],
+        "category/name": "Platters"
+    },
+    {
+        "category/products": [
+            {
+                "product/price": 1.1,
+                "product/sku": "23",
+                "product/name": "Lemon Tea"
+            },
+            {
+                "product/price": 1.5,
+                "product/sku": "24",
+                "product/name": "Honey Lemon Tea"
+            },
+            {
+                "product/description": "Tea with Coffee",
+                "product/price": 1.1,
+                "product/sku": "21",
+                "product/name": "Ying Yang"
+            },
+            {
+                "product/price": 1.25,
+                "product/sku": "22",
+                "product/name": "Green Tea"
+            },
+            {
+                "product/price": 1.5,
+                "product/sku": "19",
+                "product/name": "Vietnamese Coffee"
+            },
+            {
+                "product/price": 1.0,
+                "product/sku": "20",
+                "product/name": "Milk Tea"
+            }
+        ],
+        "category/name": "Hot Drinks"
+    },
+    {
+        "category/products": [
+            {
+                "product/price": 1.5,
+                "product/sku": "20",
+                "product/name": "Bottled Soda"
+            },
+            {
+                "product/price": 1.0,
+                "product/sku": "20",
+                "product/name": "Bottled Water"
+            },
+            {
+                "product/price": 0.75,
+                "product/sku": "20",
+                "product/name": "Soda"
+            },
+            {
+                "product/price": 1.0,
+                "product/sku": "20",
+                "product/name": "Snapple Ice Tea"
+            },
+            {
+                "product/price": 2.0,
+                "product/sku": "20",
+                "product/name": "Iced Lemon Tea"
+            },
+            {
+                "product/price": 2.5,
+                "product/sku": "20",
+                "product/name": "Iced Honey Lemon Tea"
+            },
+            {
+                "product/price": 1.75,
+                "product/sku": "20",
+                "product/name": "Iced Milk Tea"
+            },
+            {
+                "product/price": 2.0,
+                "product/sku": "20",
+                "product/name": "Iced Ying Yang"
+            },
+            {
+                "product/price": 2.5,
+                "product/sku": "20",
+                "product/name": "Vietnamese Iced Coffee"
+            }
+        ],
+        "category/name": "Cold Drinks"
+    }
+], "address": {
+    "address/zip": "19107",
+    "address/state": "PA",
+    "address/city": "Philadelphia",
+    "address/line1": "48 N. 10th Street"
+}, "phone": "267-639-4520", "web-site": "http://www.qtsandwich.com", "url": "http://www.qtsandwich.com/1", "store/name": "QT Sandwich"}

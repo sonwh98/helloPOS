@@ -19,6 +19,7 @@ import java.net.URL
 class GridViewActivity extends Activity {
   val TAG = "com.datayumyum.pos.GridViewActivity"
   val currencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
+  var store = None: Option[Store]
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -26,6 +27,8 @@ class GridViewActivity extends Activity {
     ViewServer.get(this).addWindow(this)
 
     def configureCategories() {
+      val storeJsonStr: String = Source.fromInputStream(new URL("http://hive.kaicode.com:3000/pos/store/17592186045418").openStream).mkString
+      store = Some(Store.from(storeJsonStr))
       val jsonStr: String = Source.fromInputStream(new URL("http://hive.kaicode.com:3000/pos/catalog/17592186045418").openStream).mkString
       val catalog: mutable.HashMap[String, List[Item]] = Catalog.from(jsonStr)
       val gridAdapters: mutable.HashMap[String, GridAdapter] = catalog.map(entry => {
@@ -317,10 +320,10 @@ class GridViewActivity extends Activity {
     }
 
     def checkout() {
-      val store = Store("QT Sandwich", Address("48 N 10th St", "Philadelphia", "PA", "19107"), "(267)639-4520", "http://www.qtshop.com")
+      //      val store = Store("QT Sandwich", Address("48 N 10th St", "Philadelphia", "PA", "19107"), "(267)639-4520", "http://www.qtshop.com")
       thread {
         try {
-          val receipt: Receipt = Receipt(store, lineItems.toList)
+          val receipt: Receipt = Receipt(store.get, lineItems.toList)
           val receiptEdnString: String = receipt.toEdn()
           OrderMessenger.sendOrder(receiptEdnString)
           Printer.print(receipt)
