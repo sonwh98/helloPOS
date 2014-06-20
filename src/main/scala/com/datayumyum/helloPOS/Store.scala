@@ -4,7 +4,7 @@ import scala.collection.mutable
 import scala.util.parsing.json.JSON
 
 case class Store(name: String, address: Address, phone: String, url: String, catalog: Map[String, List[Item]]) {
-    override def toString(): String = {
+  override def toString(): String = {
     name + "\n" + address.toString() + "\n" + phone + "\n" + url
   }
 }
