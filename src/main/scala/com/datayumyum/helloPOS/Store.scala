@@ -18,7 +18,7 @@ object Store {
     val address = new Address(line1 = addressMap("address/line1"),
       city = addressMap("address/city"), state = addressMap("address/state"), zip = addressMap("address/zip"))
     val phone = storeMap("phone").asInstanceOf[String]
-    val url = storeMap("url").asInstanceOf[String]
+    val webSite = storeMap("web-site").asInstanceOf[String]
 
     val catalogList = storeMap("catalog").asInstanceOf[List[Map[String, Any]]]
 
@@ -30,10 +30,11 @@ object Store {
         val name: String = product("product/name").asInstanceOf[String]
         val sku: String = product("product/sku").asInstanceOf[String]
         val price: Double = product("product/price").asInstanceOf[Double]
-        Item(name, sku, price)
+        var imageUrl: String = product.get("url").getOrElse("http://www.flaticon.com/png/256/45787.png").asInstanceOf[String]
+        Item(name, sku, imageUrl, price)
       }
       catalog(name) = itemList
     }
-    new Store(name = name, address = address, phone = phone, url = url, catalog.toMap)
+    new Store(name = name, address = address, phone = phone, url = webSite, catalog.toMap)
   }
 }

@@ -20,8 +20,9 @@ catalog.foreach { category: Map[String, Any] =>
   val itemList = products.map { product: Map[String, Any] =>
     val name: String = product("product/name").asInstanceOf[String]
     val sku: String = product("product/sku").asInstanceOf[String]
+    val url: String = product.get("url").getOrElse("http://www.flaticon.com/png/256/45787.png").asInstanceOf[String]
     val price: Double = product("product/price").asInstanceOf[Double]
-    Item(name, sku, price)
+    Item(name, sku, url, price)
   }
   categories(name) = itemList
 }
