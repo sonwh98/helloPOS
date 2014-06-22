@@ -35,6 +35,6 @@ object Store {
       }
       catalog(name) = itemList
     }
-    new Store(name = name, address = address, phone = phone, url = webSite, catalog.toMap)
+    new Store(name = name, address = address, phone = phone, url = webSite, catalog = catalog.toMap)
   }
 }
