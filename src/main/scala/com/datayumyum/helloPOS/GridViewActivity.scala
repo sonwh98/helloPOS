@@ -30,6 +30,7 @@ class GridViewActivity extends Activity {
     setContentView(R.layout.main_activity)
     ViewServer.get(this).addWindow(this)
 
+
     def configureCategories() {
       val storeJsonStr: String = Source.fromInputStream(new URL("http://hive.kaicode.com:3000/pos/store/17592186045418").openStream).mkString
       store = Some(Store.from(storeJsonStr))
@@ -43,7 +44,7 @@ class GridViewActivity extends Activity {
 
       uiThread {
         val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
-        gridView.setAdapter(gridAdapters("Platters"))
+        gridView.setAdapter(gridAdapters("Sandwiches"))
 
         val categoryContainer = findViewById(R.id.categoryContainer).asInstanceOf[LinearLayout]
         catalog.keySet.foreach((category: String) => {
@@ -79,7 +80,7 @@ class GridViewActivity extends Activity {
 
           Log.i(TAG, f"${quantity} ${item.name}")
           val builder: AlertDialog.Builder = new AlertDialog.Builder(GridViewActivity.this)
-          builder.setTitle("Choices").setMessage("List Ingredients that can be added or deleted").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+          builder.setTitle(f"Ingredients for ${item.name}").setMessage("List Ingredients that can be added or deleted").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             override def onClick(dialog: DialogInterface, which: Int): Unit = {
               Log.i(TAG, "positive Dialog onclick")
             }
@@ -90,6 +91,36 @@ class GridViewActivity extends Activity {
             }
           })
 
+          val inflater: LayoutInflater = getLayoutInflater()
+          val ingredientLayout = inflater.inflate(R.layout.ingredients_list_view, null)
+          val ingredientListView = ingredientLayout.findViewById(R.id.ingredientListView).asInstanceOf[ListView]
+
+          val ingredientModel = new BaseAdapter {
+            val ingredientList: List[String] = List("Tomato", "Avocado", "Cheese", "Pepper", "Salt", "Oregono")
+            val widgets = ingredientList.map { _ => new TextView(GridViewActivity.this)}
+
+            override def getCount: Int = {
+              ingredientList.size
+            }
+
+            override def getItemId(position: Int): Long = {
+              0
+            }
+
+            override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
+              val textView: TextView = widgets(position)
+              textView.setText(ingredientList(position))
+              textView
+            }
+
+            override def getItem(position: Int): AnyRef = {
+              ingredientList(position)
+            }
+          }
+
+          ingredientListView.setAdapter(ingredientModel)
+
+          builder.setView(ingredientLayout)
           builder.create().show()
           return true
         }
