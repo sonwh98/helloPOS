@@ -6,12 +6,13 @@ import java.util.Locale
 
 import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.animation.{ArgbEvaluator, ValueAnimator}
-import android.app.Activity
+import android.app.{AlertDialog, Activity}
+import android.content.DialogInterface
 import android.debug.hv.ViewServer
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup.LayoutParams
-import android.view.{LayoutInflater, MotionEvent, View, ViewGroup}
+import android.view._
 import android.widget
 import android.widget.AdapterView.OnItemLongClickListener
 import android.widget._
@@ -77,6 +78,19 @@ class GridViewActivity extends Activity {
           val (quantity, item) = ShoppingCart.lineItems(position)
 
           Log.i(TAG, f"${quantity} ${item.name}")
+          val builder: AlertDialog.Builder = new AlertDialog.Builder(GridViewActivity.this)
+          builder.setTitle("Choices").setMessage("List Ingredients that can be added or deleted").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            override def onClick(dialog: DialogInterface, which: Int): Unit = {
+              Log.i(TAG, "positive Dialog onclick")
+            }
+          })
+          builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            override def onClick(dialog: DialogInterface, which: Int): Unit = {
+              Log.i(TAG, "negative Dialog onclick")
+            }
+          })
+
+          builder.create().show()
           return true
         }
       }
@@ -85,7 +99,6 @@ class GridViewActivity extends Activity {
       listView.setOnScrollListener(touchListener.makeScrollListener())
       listView.setOnItemLongClickListener(longClickListener)
 
-      registerForContextMenu(listView)
     }
     def configureNumberPad() {
       val buttonIdList = List(R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7,
