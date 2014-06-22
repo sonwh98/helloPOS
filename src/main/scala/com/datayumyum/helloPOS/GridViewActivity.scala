@@ -1,20 +1,23 @@
 package com.datayumyum.helloPOS
 
-import android.os.Bundle
-import android.app.Activity
-import scala.io.Source
-import android.view.{MotionEvent, ViewGroup, View, LayoutInflater}
-import android.widget._
-import android.animation.{ArgbEvaluator, ValueAnimator}
-import scala.collection.mutable
-import android.util.Log
-import java.util.Locale
-import java.text.NumberFormat
-import android.animation.ValueAnimator.AnimatorUpdateListener
-import android.widget
-import android.debug.hv.ViewServer
-import android.view.ViewGroup.LayoutParams
 import java.net.URL
+import java.text.NumberFormat
+import java.util.Locale
+
+import android.animation.ValueAnimator.AnimatorUpdateListener
+import android.animation.{ArgbEvaluator, ValueAnimator}
+import android.app.Activity
+import android.debug.hv.ViewServer
+import android.os.Bundle
+import android.util.Log
+import android.view.ViewGroup.LayoutParams
+import android.view.{LayoutInflater, MotionEvent, View, ViewGroup}
+import android.widget
+import android.widget.AdapterView.OnItemLongClickListener
+import android.widget._
+
+import scala.collection.mutable
+import scala.io.Source
 
 class GridViewActivity extends Activity {
   val TAG = "com.datayumyum.pos.GridViewActivity"
@@ -68,8 +71,19 @@ class GridViewActivity extends Activity {
           }
         }
       })
+
+      val longClickListener = new OnItemLongClickListener() {
+        override def onItemLongClick(parent: AdapterView[_], view: View, position: Int, id: Long): Boolean = {
+          Log.i(TAG, "Foo")
+          return true
+        }
+      }
+
       listView.setOnTouchListener(touchListener)
       listView.setOnScrollListener(touchListener.makeScrollListener())
+      listView.setOnItemLongClickListener(longClickListener)
+
+      registerForContextMenu(listView)
     }
     def configureNumberPad() {
       val buttonIdList = List(R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7,
