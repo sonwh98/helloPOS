@@ -97,7 +97,7 @@ class GridViewActivity extends Activity {
 
           val ingredientModel = new BaseAdapter {
             val ingredientList: List[String] = List("Tomato", "Avocado", "Cheese", "Pepper", "Salt", "Oregono")
-            val widgets = ingredientList.map { _ => new TextView(GridViewActivity.this)}
+            val widgets = ingredientList.map { _ => new CheckBox(GridViewActivity.this)}
 
             override def getCount: Int = {
               ingredientList.size
@@ -108,9 +108,9 @@ class GridViewActivity extends Activity {
             }
 
             override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
-              val textView: TextView = widgets(position)
-              textView.setText(ingredientList(position))
-              textView
+              val checkBoxView: CheckBox = widgets(position)
+              checkBoxView.setText(ingredientList(position))
+              checkBoxView
             }
 
             override def getItem(position: Int): AnyRef = {
