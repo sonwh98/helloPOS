@@ -74,7 +74,9 @@ class GridViewActivity extends Activity {
 
       val longClickListener = new OnItemLongClickListener() {
         override def onItemLongClick(parent: AdapterView[_], view: View, position: Int, id: Long): Boolean = {
-          Log.i(TAG, "Foo")
+          val (quantity, item) = ShoppingCart.lineItems(position)
+
+          Log.i(TAG, f"${quantity} ${item.name}")
           return true
         }
       }
