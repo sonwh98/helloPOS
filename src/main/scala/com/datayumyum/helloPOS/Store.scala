@@ -25,7 +25,7 @@ object Store {
     var catalog = new mutable.HashMap[String, List[Item]]
     catalogList.foreach { category: Map[String, Any] =>
       val name = category("category/name").asInstanceOf[String]
-      val products: List[Map[String, Any]] = category("category/products").asInstanceOf[List[Map[String, Any]]]
+      val products: List[Map[String, Any]] = category("products").asInstanceOf[List[Map[String, Any]]]
       val itemList = products.map { product: Map[String, Any] =>
         val name: String = product("product/name").asInstanceOf[String]
         val sku: String = product("product/sku").asInstanceOf[String]
