@@ -1,12 +1,10 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven {
-            url "http://saturday06.github.io/gradle-android-scala-plugin/repository/snapshot"
-        }
+        maven { url 'http://saturday06.github.io/gradle-android-scala-plugin/repository/snapshot' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.10.1'
+        classpath 'com.android.tools.build:gradle:0.11.+'
         classpath 'jp.leafytree.gradle:gradle-android-scala-plugin:1.0-SNAPSHOT'
     }
 }
@@ -20,7 +18,7 @@ apply plugin: 'android-scala'
 apply plugin: 'idea'
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.3'
+    buildToolsVersion '19.1.0'
 
     defaultConfig {
         minSdkVersion 14
