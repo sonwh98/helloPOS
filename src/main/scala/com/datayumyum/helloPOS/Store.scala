@@ -44,7 +44,7 @@ object Store {
           price = p.getDouble("product/price"))
       }.toList
 
-      myCatalog(catName) = productList
+      myCatalog(catName) = productList.sortWith{ (item1, item2)=> item1.sku<item2.sku }
     }
 
     val addr = jsonObject.getJSONObject("address")
