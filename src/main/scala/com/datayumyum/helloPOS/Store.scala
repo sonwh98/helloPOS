@@ -1,7 +1,6 @@
 package com.datayumyum.helloPOS
 
-import scala.collection.mutable
-import scala.util.parsing.json.JSON
+import org.json._
 
 case class Store(name: String, address: Address, phone: String, url: String, catalog: Map[String, List[Item]]) {
   override def toString(): String = {
@@ -11,30 +10,50 @@ case class Store(name: String, address: Address, phone: String, url: String, cat
 
 object Store {
   def from(jsonStr: String): Store = {
-    val result: Option[Any] = JSON.parseFull(jsonStr)
-    val storeMap = result.get.asInstanceOf[Map[String, Any]]
-    val name = storeMap("store/name").asInstanceOf[String]
-    val addressMap = storeMap("address").asInstanceOf[Map[String, String]]
-    val address = new Address(line1 = addressMap("address/line1"),
-      city = addressMap("address/city"), state = addressMap("address/state"), zip = addressMap("address/zip"))
-    val phone = storeMap("phone").asInstanceOf[String]
-    val webSite = storeMap("web-site").asInstanceOf[String]
+    val jsonObject = new JSONObject(jsonStr)
 
-    val catalogList = storeMap("catalog").asInstanceOf[List[Map[String, Any]]]
+    val products = jsonObject.getJSONArray("products")
+    val catalog = jsonObject.getJSONArray("catalog")
 
-    var catalog = new mutable.HashMap[String, List[Item]]
-    catalogList.foreach { category: Map[String, Any] =>
-      val name = category("category/name").asInstanceOf[String]
-      val products: List[Map[String, Any]] = category("products").asInstanceOf[List[Map[String, Any]]]
-      val itemList = products.map { product: Map[String, Any] =>
-        val name: String = product("product/name").asInstanceOf[String]
-        val sku: String = product("product/sku").asInstanceOf[String]
-        val price: Double = product("product/price").asInstanceOf[Double]
-        var imageUrl: String = product.get("url").getOrElse("http://www.flaticon.com/png/256/45787.png").asInstanceOf[String]
-        Item(name, sku, imageUrl, price)
+    def getUrl(p: JSONObject): String = {
+      var url: String = "http://www.com"
+      try {
+        url = p.getString("url")
+      } catch {
+        case e: JSONException => url = "http://www.flaticon.com/png/256/45787.png"
       }
-      catalog(name) = itemList
+      url
     }
-    new Store(name = name, address = address, phone = phone, url = webSite, catalog = catalog.toMap)
+
+    val pp = (0 until products.length()).map { index =>
+      val p = products.getJSONObject(index)
+      Item(name = p.getString("product/name"), sku = p.getString("product/sku"), imageURL = getUrl(p), price = p.getDouble("product/price"))
+    }
+
+    var myCatalog = collection.mutable.Map[String, List[Item]]()
+    (0 until catalog.length()).foreach { index =>
+      val category = catalog.getJSONObject(index)
+      val catName = category.getString("category/name")
+      val products = category.getJSONArray("products")
+      val productList = (0 until products.length()).map { index =>
+        val p = products.getJSONObject(index)
+
+        Item(name = p.getString("product/name"),
+          sku = p.getString("product/sku"),
+          imageURL = getUrl(p),
+          price = p.getDouble("product/price"))
+      }.toList
+
+      myCatalog(catName) = productList
+    }
+
+    val addr = jsonObject.getJSONObject("address")
+    val address = new Address(line1 = addr.getString("address/line1"), city = addr.getString("address/city"), state = addr.getString("address/state"), zip = addr.getString("address/zip"))
+    val store = Store(name = jsonObject.getString("store/name"),
+      address = address,
+      phone = jsonObject.getString("phone"),
+      url = jsonObject.getString("url"),
+      catalog = myCatalog.toMap)
+    store
   }
 }
