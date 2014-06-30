@@ -1,7 +1,7 @@
 package com.datayumyum.helloPOS
 
 object Util {
-  def sumLineItems(lineItems: Seq[(Int, Item)]): Double = {
+  def sumLineItems(lineItems: Seq[(Int, Product)]): Double = {
     lineItems.map {
       case (quantity, item) => {
         quantity * item.price

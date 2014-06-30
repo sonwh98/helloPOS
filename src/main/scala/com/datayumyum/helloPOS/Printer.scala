@@ -49,7 +49,7 @@ object Printer {
       receipt.lineItems.foreach {
         lineItem =>
           val quantity: Int = lineItem._1
-          val item: Item = lineItem._2
+          val item: Product = lineItem._2
           val subTotal = item.price * quantity
 
           val quantityStr: String = quantity.toString

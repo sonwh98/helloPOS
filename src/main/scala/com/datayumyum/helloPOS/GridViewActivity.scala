@@ -35,10 +35,10 @@ class GridViewActivity extends Activity {
       val storeJsonStr: String = Source.fromInputStream(new URL("http://hive.kaicode.com:3000/pos/store/17592186045418").openStream).mkString
       store = Some(Store.from(storeJsonStr))
 
-      val catalog: Map[String, List[Item]] = store.get.catalog
+      val catalog: Map[String, List[Product]] = store.get.catalog
       val gridAdapters: Map[String, GridAdapter] = catalog.map { entry =>
         val categoryName: String = entry._1
-        val itemInCategory: List[Item] = entry._2
+        val itemInCategory: List[Product] = entry._2
         (categoryName, new GridAdapter(itemInCategory))
       }
 
@@ -187,8 +187,8 @@ class GridViewActivity extends Activity {
     ViewServer.get(this).setFocusedWindow(this)
   }
 
-  class GridAdapter(items: List[Item]) extends BaseAdapter {
-    val itemButtonList: List[View] = items.map((item: Item) => {
+  class GridAdapter(items: List[Product]) extends BaseAdapter {
+    val itemButtonList: List[View] = items.map((item: Product) => {
       val inflater: LayoutInflater = getLayoutInflater()
       val itemButton: View = inflater.inflate(R.layout.item_button, null)
       val imageButton: ImageButton = itemButton.findViewById(R.id.item_image_button).asInstanceOf[ImageButton]
@@ -273,7 +273,7 @@ class GridViewActivity extends Activity {
   })
 
   object ShoppingCart extends BaseAdapter {
-    val lineItems = new mutable.ArrayBuffer[(Int, Item)]()
+    val lineItems = new mutable.ArrayBuffer[(Int, Product)]()
     val lineItemViews = mutable.MutableList.empty[View]
     val lineItemListView = findViewById(R.id.lineItemListView).asInstanceOf[ListView]
     val TAG = "com.datayumyum.pos.ShoppingCart"
@@ -320,7 +320,7 @@ class GridViewActivity extends Activity {
       return view
     }
 
-    def add(item: Item, quantity: Int = 1) {
+    def add(item: Product, quantity: Int = 1) {
       val (currentQuantity, foundItem) = lineItems.find {
         case (quantity1, item1) => item == item1
       }.getOrElse((0, item))

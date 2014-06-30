@@ -2,7 +2,7 @@ package com.datayumyum.helloPOS
 
 import org.json._
 
-case class Store(name: String, address: Address, phone: String, url: String, catalog: Map[String, List[Item]]) {
+case class Store(name: String, address: Address, phone: String, url: String, catalog: Map[String, List[Product]]) {
   override def toString(): String = {
     name + "\n" + address.toString() + "\n" + phone + "\n" + url
   }
@@ -27,10 +27,10 @@ object Store {
 
     val pp = (0 until products.length()).map { index =>
       val p = products.getJSONObject(index)
-      Item(name = p.getString("product/name"), sku = p.getString("product/sku"), imageURL = getUrl(p), price = p.getDouble("product/price"))
+      Product(name = p.getString("product/name"), sku = p.getString("product/sku"), imageURL = getUrl(p), price = p.getDouble("product/price"))
     }
 
-    var myCatalog = collection.mutable.Map[String, List[Item]]()
+    var myCatalog = collection.mutable.Map[String, List[Product]]()
     (0 until catalog.length()).foreach { index =>
       val category = catalog.getJSONObject(index)
       val catName = category.getString("category/name")
@@ -38,7 +38,7 @@ object Store {
       val productList = (0 until products.length()).map { index =>
         val p = products.getJSONObject(index)
 
-        Item(name = p.getString("product/name"),
+        Product(name = p.getString("product/name"),
           sku = p.getString("product/sku"),
           imageURL = getUrl(p),
           price = p.getDouble("product/price"))
