@@ -15,7 +15,6 @@ repositories {
 
 apply plugin: 'android'
 apply plugin: 'android-scala'
-apply plugin: 'idea'
 android {
     compileSdkVersion 19
     buildToolsVersion '19.1.0'
@@ -43,8 +42,7 @@ android {
 }
 
 dependencies {
-    compile 'org.scala-lang:scala-library:2.10.4'
-    compile 'org.scala-lang:scala-compiler:2.10.4'
+    compile 'org.scala-lang:scala-library:2.11.1'
     compile 'com.google.android:support-v4:r7'
     compile 'com.rabbitmq:amqp-client:3.3.2'
     compile 'com.jayway.android.robotium:robotium-solo:5.1'
