@@ -20,8 +20,8 @@ import android.widget._
 import scala.collection.mutable
 import scala.io.Source
 
-class GridViewActivity extends Activity {
-  val TAG = "com.datayumyum.pos.GridViewActivity"
+class MainActivity extends Activity {
+  val TAG = "com.datayumyum.pos.MainActivity"
   val currencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
   var store = None: Option[Store]
   lazy val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
@@ -78,7 +78,7 @@ class GridViewActivity extends Activity {
           val (quantity, item) = ShoppingCart.lineItems(position)
 
           Log.i(TAG, f"${quantity} ${item.name}")
-          val builder: AlertDialog.Builder = new AlertDialog.Builder(GridViewActivity.this)
+          val builder: AlertDialog.Builder = new AlertDialog.Builder(MainActivity.this)
           builder.setTitle(f"Ingredients for ${item.name}").setMessage("List Ingredients that can be added or deleted").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             override def onClick(dialog: DialogInterface, which: Int): Unit = {
               Log.i(TAG, "positive Dialog onclick")
@@ -96,7 +96,7 @@ class GridViewActivity extends Activity {
 
           val ingredientModel = new BaseAdapter {
             val ingredientList: List[String] = List("Tomato", "Avocado", "Cheese", "Pepper", "Salt", "Oregono")
-            val widgets = ingredientList.map { _ => new CheckBox(GridViewActivity.this)}
+            val widgets = ingredientList.map { _ => new CheckBox(MainActivity.this)}
 
             override def getCount: Int = {
               ingredientList.size
