@@ -24,12 +24,12 @@ class GridViewActivity extends Activity {
   val TAG = "com.datayumyum.pos.GridViewActivity"
   val currencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
   var store = None: Option[Store]
+  lazy val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main_activity)
     ViewServer.get(this).addWindow(this)
-
 
     def configureCategories() {
       val storeJsonStr: String = Source.fromInputStream(new URL("http://hive.kaicode.com:3000/pos/store/17592186045418").openStream).mkString
@@ -43,11 +43,10 @@ class GridViewActivity extends Activity {
       }
 
       uiThread {
-        val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
         gridView.setAdapter(gridAdapters("Sandwiches"))
 
         val categoryContainer = findViewById(R.id.categoryContainer).asInstanceOf[LinearLayout]
-        catalog.keySet.foreach((category: String) => {
+        catalog.keySet.toList.sortWith { (a: String, b: String) => a.compareTo(b) < 0}.foreach((category: String) => {
           val categoryButton: Button = new Button(getApplicationContext())
           categoryButton.setText(category)
           categoryButton.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 100))
