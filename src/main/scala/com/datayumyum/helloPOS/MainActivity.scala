@@ -23,8 +23,13 @@ import scala.io.Source
 class MainActivity extends Activity {
   val TAG = "com.datayumyum.pos.MainActivity"
   val currencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
-  var store = None: Option[Store]
+  lazy val store = getStore("17592186045418")
   lazy val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
+
+  def getStore(id: String): Store = {
+    val storeJsonStr: String = Source.fromInputStream(new URL(s"http://hive.kaicode.com:3000/pos/store/${id}").openStream).mkString
+    Store.from(storeJsonStr)
+  }
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -32,10 +37,7 @@ class MainActivity extends Activity {
     ViewServer.get(this).addWindow(this)
 
     def configureCategories() {
-      val storeJsonStr: String = Source.fromInputStream(new URL("http://hive.kaicode.com:3000/pos/store/17592186045418").openStream).mkString
-      store = Some(Store.from(storeJsonStr))
-
-      val catalog: Map[String, List[Product]] = store.get.catalog
+      val catalog: Map[String, List[Product]] = store.catalog
       val gridAdapters: Map[String, GridAdapter] = catalog.map { entry =>
         val categoryName: String = entry._1
         val itemInCategory: List[Product] = entry._2
@@ -79,6 +81,13 @@ class MainActivity extends Activity {
 
           Log.i(TAG, f"${quantity} ${item.name}")
           val builder: AlertDialog.Builder = new AlertDialog.Builder(MainActivity.this)
+          val items: Array[CharSequence] = Array("Tomato", "Avocado", "Cheese", "Pepper", "Salt", "Oregono")
+          builder.setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener {
+            def onClick(dialogInterface: DialogInterface, indexSelected: Int, isChecked: Boolean) {
+              Log.i(TAG, "selected")
+            }
+          })
+
           builder.setTitle(f"Ingredients for ${item.name}").setMessage("List Ingredients that can be added or deleted").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             override def onClick(dialog: DialogInterface, which: Int): Unit = {
               Log.i(TAG, "positive Dialog onclick")
@@ -90,36 +99,6 @@ class MainActivity extends Activity {
             }
           })
 
-          val inflater: LayoutInflater = getLayoutInflater()
-          val ingredientLayout = inflater.inflate(R.layout.ingredients_list_view, null)
-          val ingredientListView = ingredientLayout.findViewById(R.id.ingredientListView).asInstanceOf[ListView]
-
-          val ingredientModel = new BaseAdapter {
-            val ingredientList: List[String] = List("Tomato", "Avocado", "Cheese", "Pepper", "Salt", "Oregono")
-            val widgets = ingredientList.map { _ => new CheckBox(MainActivity.this)}
-
-            override def getCount: Int = {
-              ingredientList.size
-            }
-
-            override def getItemId(position: Int): Long = {
-              0
-            }
-
-            override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
-              val checkBoxView: CheckBox = widgets(position)
-              checkBoxView.setText(ingredientList(position))
-              checkBoxView
-            }
-
-            override def getItem(position: Int): AnyRef = {
-              ingredientList(position)
-            }
-          }
-
-          ingredientListView.setAdapter(ingredientModel)
-
-          builder.setView(ingredientLayout)
           builder.create().show()
           return true
         }
@@ -175,6 +154,7 @@ class MainActivity extends Activity {
     configureLineItemView()
     configureNumberPad()
   }
+
 
   override def onDestroy() {
     super.onDestroy()
@@ -382,7 +362,7 @@ class MainActivity extends Activity {
       //      val store = Store("QT Sandwich", Address("48 N 10th St", "Philadelphia", "PA", "19107"), "(267)639-4520", "http://www.qtshop.com")
       thread {
         try {
-          val receipt: Receipt = Receipt(store.get, lineItems.toList)
+          val receipt: Receipt = Receipt(store, lineItems.toList)
           val receiptEdnString: String = receipt.toEdn()
           OrderMessenger.sendOrder(receiptEdnString)
           Printer.print(receipt)
