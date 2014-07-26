@@ -8,6 +8,7 @@ import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.animation.{ArgbEvaluator, ValueAnimator}
 import android.app.{AlertDialog, Activity}
 import android.content.DialogInterface
+import android.content.DialogInterface.OnMultiChoiceClickListener
 import android.debug.hv.ViewServer
 import android.os.Bundle
 import android.util.Log
@@ -81,20 +82,20 @@ class MainActivity extends Activity {
 
           Log.i(TAG, f"${quantity} ${item.name}")
           val builder: AlertDialog.Builder = new AlertDialog.Builder(MainActivity.this)
-          val items: Array[CharSequence] = Array("Tomato", "Avocado", "Cheese", "Pepper", "Salt", "Oregono")
-          val checkedItems = items.map {
+          val ingredientList: Array[CharSequence] = Array("Tomato", "Avocado", "Cheese", "Pepper", "Salt", "Oregono")
+          val checkedItems = ingredientList.map {
             s: CharSequence => false
           }.toArray[Boolean]
 
-          builder.setMultiChoiceItems(items, checkedItems, new DialogInterface.OnMultiChoiceClickListener {
-
+          val ingredientSelectionListener = new OnMultiChoiceClickListener {
             override def onClick(dialogInterface: DialogInterface, indexSelected: Int, isChecked: Boolean) {
               if (isChecked) {
-                Toast.makeText(MainActivity.this, items(indexSelected), Toast.LENGTH_LONG).show
+                val ingredient: CharSequence = ingredientList(indexSelected)
               }
-
             }
-          })
+          }
+
+          builder.setMultiChoiceItems(ingredientList, checkedItems, ingredientSelectionListener)
 
           builder.setTitle(f"Ingredients for ${item.name}").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             override def onClick(dialog: DialogInterface, which: Int): Unit = {
