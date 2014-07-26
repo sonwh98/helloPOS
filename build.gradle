@@ -17,7 +17,7 @@ apply plugin: 'android'
 apply plugin: 'android-scala'
 android {
     compileSdkVersion 20
-    buildToolsVersion "20.0.0"
+    buildToolsVersion '20.0.0'
 
     defaultConfig {
         minSdkVersion 14
@@ -28,6 +28,7 @@ android {
     packagingOptions {
         exclude 'rootdoc.txt'
     }
+
     buildTypes {
         debug {
             runProguard true
@@ -43,9 +44,11 @@ android {
 
 dependencies {
     compile 'org.scala-lang:scala-library:2.11.1'
+    compile 'org.scala-lang:scala-compiler:2.11.1'
     compile 'com.google.android:support-v4:r7'
     compile 'com.rabbitmq:amqp-client:3.3.2'
     compile 'com.jayway.android.robotium:robotium-solo:5.1'
     compile files('lib/StarIOPort3.1.jar')
-//    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.1'
+    compile files('lib/json.jar')
+    //    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.1'
 }
