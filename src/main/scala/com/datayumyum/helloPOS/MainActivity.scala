@@ -82,13 +82,21 @@ class MainActivity extends Activity {
           Log.i(TAG, f"${quantity} ${item.name}")
           val builder: AlertDialog.Builder = new AlertDialog.Builder(MainActivity.this)
           val items: Array[CharSequence] = Array("Tomato", "Avocado", "Cheese", "Pepper", "Salt", "Oregono")
-          builder.setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener {
-            def onClick(dialogInterface: DialogInterface, indexSelected: Int, isChecked: Boolean) {
-              Log.i(TAG, "selected")
+          val checkedItems = items.map {
+            s: CharSequence => false
+          }.toArray[Boolean]
+
+          builder.setMultiChoiceItems(items, checkedItems, new DialogInterface.OnMultiChoiceClickListener {
+
+            override def onClick(dialogInterface: DialogInterface, indexSelected: Int, isChecked: Boolean) {
+              if (isChecked) {
+                Toast.makeText(MainActivity.this, items(indexSelected), Toast.LENGTH_LONG).show
+              }
+
             }
           })
 
-          builder.setTitle(f"Ingredients for ${item.name}").setMessage("List Ingredients that can be added or deleted").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+          builder.setTitle(f"Ingredients for ${item.name}").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             override def onClick(dialog: DialogInterface, which: Int): Unit = {
               Log.i(TAG, "positive Dialog onclick")
             }
