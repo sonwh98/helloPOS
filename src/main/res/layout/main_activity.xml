@@ -136,7 +136,7 @@
     <LinearLayout android:layout_width="0pt" android:layout_height="fill_parent" android:layout_weight="1"
                   android:orientation="vertical" android:background="@color/thirdPanel">
         <TextView android:id="@+id/accumulatorDisplay" android:layout_width="match_parent"
-                  android:layout_height="10pt" android:background="@color/white"/>
+                  android:layout_height="20pt" android:background="@color/white"/>
         <RelativeLayout android:layout_width="match_parent" android:layout_height="0pt" android:layout_weight="1"
                         android:gravity="bottom" android:background="@color/deep_pink">
             <TableLayout android:id="@+id/numberPad" android:layout_width="wrap_content"
