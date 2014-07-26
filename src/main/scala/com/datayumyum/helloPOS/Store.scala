@@ -1,6 +1,10 @@
 package com.datayumyum.helloPOS
 
+import java.net.URL
+
 import org.json._
+
+import scala.io.Source
 
 case class Store(name: String, address: Address, phone: String, url: String, catalog: Map[String, List[Product]]) {
   override def toString(): String = {
@@ -37,6 +41,10 @@ object Store {
       val products = category.getJSONArray("products")
       val productList = (0 until products.length()).map { index =>
         val p = products.getJSONObject(index)
+        if (p.has("product/components")) {
+          val components = p.getJSONArray("product/components")
+          println(s"components=${components}}")
+        }
 
         Product(name = p.getString("product/name"),
           sku = p.getString("product/sku"),
@@ -44,7 +52,7 @@ object Store {
           price = p.getDouble("product/price"))
       }.toList
 
-      myCatalog(catName) = productList.sortWith{ (item1, item2)=> item1.sku<item2.sku }
+      myCatalog(catName) = productList.sortWith { (item1, item2) => item1.sku < item2.sku}
     }
 
     val addr = jsonObject.getJSONObject("address")
@@ -55,5 +63,10 @@ object Store {
       url = jsonObject.getString("url"),
       catalog = myCatalog.toMap)
     store
+  }
+
+  def findById(id: String): Store = {
+    val storeJsonStr: String = Source.fromInputStream(new URL(s"http://hive.kaicode.com:3000/pos/store/${id}").openStream).mkString
+    Store.from(storeJsonStr)
   }
 }

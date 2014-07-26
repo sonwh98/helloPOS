@@ -1,12 +1,11 @@
 package com.datayumyum.helloPOS
 
-import java.net.URL
 import java.text.NumberFormat
 import java.util.Locale
 
 import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.animation.{ArgbEvaluator, ValueAnimator}
-import android.app.{AlertDialog, Activity}
+import android.app.{Activity, AlertDialog}
 import android.content.DialogInterface
 import android.content.DialogInterface.OnMultiChoiceClickListener
 import android.debug.hv.ViewServer
@@ -19,18 +18,14 @@ import android.widget.AdapterView.OnItemLongClickListener
 import android.widget._
 
 import scala.collection.mutable
-import scala.io.Source
 
 class MainActivity extends Activity {
   val TAG = "com.datayumyum.pos.MainActivity"
   val currencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
-  lazy val store = getStore("17592186045418")
+  lazy val store = Store.findById("17592186045418")
   lazy val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
 
-  def getStore(id: String): Store = {
-    val storeJsonStr: String = Source.fromInputStream(new URL(s"http://hive.kaicode.com:3000/pos/store/${id}").openStream).mkString
-    Store.from(storeJsonStr)
-  }
+ 
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -88,9 +83,13 @@ class MainActivity extends Activity {
           }.toArray[Boolean]
 
           val ingredientSelectionListener = new OnMultiChoiceClickListener {
+            var ingredientSelected: Array[String] = Array()
+
             override def onClick(dialogInterface: DialogInterface, indexSelected: Int, isChecked: Boolean) {
               if (isChecked) {
-                val ingredient: CharSequence = ingredientList(indexSelected)
+                val ingredient: String = ingredientList(indexSelected).asInstanceOf[String]
+                Log.i(TAG, s"adding $ingredient")
+                ingredientSelected = ingredientSelected ++ Array(ingredient)
               }
             }
           }
@@ -99,7 +98,8 @@ class MainActivity extends Activity {
 
           builder.setTitle(f"Ingredients for ${item.name}").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             override def onClick(dialog: DialogInterface, which: Int): Unit = {
-              Log.i(TAG, "positive Dialog onclick")
+              val selected: Array[String] = ingredientSelectionListener.ingredientSelected
+              selected.foreach { item => Log.i(TAG, item)}
             }
           })
           builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
