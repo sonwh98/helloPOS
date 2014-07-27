@@ -29,11 +29,6 @@ object Store {
       url
     }
 
-    val pp = (0 until products.length()).map { index =>
-      val p = products.getJSONObject(index)
-      Product(name = p.getString("product/name"), sku = p.getString("product/sku"), imageURL = getUrl(p), price = p.getDouble("product/price"))
-    }
-
     var myCatalog = collection.mutable.Map[String, List[Product]]()
     (0 until catalog.length()).foreach { index =>
       val category = catalog.getJSONObject(index)
@@ -43,13 +38,24 @@ object Store {
         val p = products.getJSONObject(index)
         if (p.has("product/components")) {
           val components = p.getJSONArray("product/components")
-          println(s"components=${components}}")
-        }
+          val ingredients = (0 until components.length()).map { index =>
+            val c = components.getJSONObject(index)
+            Product(name = c.getString("product/name"),
+              sku = c.getString("product/sku"),
+              imageURL = getUrl(c),
+              price = c.getDouble("product/price"), ingredients = None)
+          }.toList
 
-        Product(name = p.getString("product/name"),
-          sku = p.getString("product/sku"),
-          imageURL = getUrl(p),
-          price = p.getDouble("product/price"))
+          Product(name = p.getString("product/name"),
+            sku = p.getString("product/sku"),
+            imageURL = getUrl(p),
+            price = p.getDouble("product/price"), ingredients = Some(ingredients))
+        } else {
+          Product(name = p.getString("product/name"),
+            sku = p.getString("product/sku"),
+            imageURL = getUrl(p),
+            price = p.getDouble("product/price"), ingredients = None)
+        }
       }.toList
 
       myCatalog(catName) = productList.sortWith { (item1, item2) => item1.sku < item2.sku}
@@ -66,7 +72,9 @@ object Store {
   }
 
   def findById(id: String): Store = {
-    val storeJsonStr: String = Source.fromInputStream(new URL(s"http://hive.kaicode.com:3000/pos/store/${id}").openStream).mkString
+    val storeJsonStr: String = Source.fromInputStream(new URL(s"http://hive.kaicode.com:3000/pos/store/${
+      id
+    }").openStream).mkString
     Store.from(storeJsonStr)
   }
 }
