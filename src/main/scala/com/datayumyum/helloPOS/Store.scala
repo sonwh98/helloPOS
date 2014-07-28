@@ -72,9 +72,7 @@ object Store {
   }
 
   def findById(id: String): Store = {
-    val storeJsonStr: String = Source.fromInputStream(new URL(s"http://hive.kaicode.com:3000/pos/store/${
-      id
-    }").openStream).mkString
+    val storeJsonStr: String = Source.fromInputStream(new URL(s"http://hive.kaicode.com:3000/pos/store/${id}").openStream).mkString
     Store.from(storeJsonStr)
   }
 }
