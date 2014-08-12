@@ -4,7 +4,7 @@ buildscript {
         maven { url 'http://saturday06.github.io/gradle-android-scala-plugin/repository/snapshot' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath "com.android.tools.build:gradle:0.12.2"
         classpath 'jp.leafytree.gradle:gradle-android-scala-plugin:1.0-SNAPSHOT'
     }
 }
@@ -43,12 +43,10 @@ android {
 }
 
 dependencies {
-    compile 'org.scala-lang:scala-library:2.11.1'
-    compile 'org.scala-lang:scala-compiler:2.11.1'
+    compile 'org.scala-lang:scala-library:2.11.2'
+    compile 'org.scala-lang:scala-compiler:2.11.2'
     compile 'com.google.android:support-v4:r7'
     compile 'com.rabbitmq:amqp-client:3.3.2'
-    compile 'com.jayway.android.robotium:robotium-solo:5.1'
     compile files('lib/StarIOPort3.1.jar')
     compile files('lib/json.jar')
-    //    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.1'
 }
