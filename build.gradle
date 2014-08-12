@@ -48,5 +48,5 @@ dependencies {
     compile 'com.google.android:support-v4:r7'
     compile 'com.rabbitmq:amqp-client:3.3.2'
     compile files('lib/StarIOPort3.1.jar')
-    compile files('lib/json.jar')
+//    compile files('lib/json.jar')
 }
