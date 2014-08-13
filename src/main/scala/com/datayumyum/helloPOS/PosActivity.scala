@@ -16,6 +16,7 @@ import android.view._
 import android.widget
 import android.widget.AdapterView.OnItemLongClickListener
 import android.widget._
+import com.datayumyum.helloPOS.EventHandlers._
 
 import scala.collection.mutable
 
@@ -47,9 +48,9 @@ class PosActivity extends Activity {
           val categoryButton: Button = new Button(getApplicationContext())
           categoryButton.setText(category)
           categoryButton.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 100))
-          categoryButton.setOnClickListener((v: View) => {
+          categoryButton.onClick { () =>
             gridView.setAdapter(gridAdapters(category))
-          })
+          }
           categoryContainer.addView(categoryButton)
         })
       }
@@ -126,9 +127,9 @@ class PosActivity extends Activity {
       buttonIdList.foreach {
         id =>
           val button = findViewById(id).asInstanceOf[Button]
-          button.setOnClickListener((v: View) => {
+          button.onClick { () =>
             Accumulator.push(button.getText().toString())
-          })
+          }
       }
       val allButtons = buttonIdList ++ List(R.id.clearButton, R.id.cashButton, R.id.creditButton)
       allButtons.foreach {
@@ -137,11 +138,9 @@ class PosActivity extends Activity {
           button.setPadding(50, 50, 50, 50)
       }
 
-      findViewById(R.id.clearButton).setOnClickListener {
-        (view: View) => Accumulator.reset()
-      }
+      findViewById(R.id.clearButton).onClick { () => Accumulator.reset()}
 
-      val submitOrder = (v: View) => {
+      val submitOrder = () => {
         val tender: Double = Accumulator.pop()
         Log.i(TAG, "submitOrder cashTender: " + tender.toString)
         Accumulator.reset()
@@ -155,9 +154,9 @@ class PosActivity extends Activity {
       val cashButton = findViewById(R.id.cashButton)
       val creditButton = findViewById(R.id.creditButton)
 
-      cashButton.setOnClickListener(submitOrder)
-      creditButton.setOnClickListener(submitOrder)
+      cashButton.onClick { () => submitOrder()}
 
+      creditButton.onClick { () => submitOrder()}
     }
     thread {
       configureCategories()
@@ -234,13 +233,6 @@ class PosActivity extends Activity {
     override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
       val imageView: View = itemButtonList(position)
       return imageView
-    }
-  }
-
-  implicit class OnClickListener(onClickCallBack: View => Any) extends View.OnClickListener {
-
-    override def onClick(v: View) {
-      onClickCallBack(v)
     }
   }
 
