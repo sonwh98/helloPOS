@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/welcome_background"
+    >
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="100pt"
+            android:layout_height="100pt"
+            android:layout_marginTop="52dp"
+            android:src="@drawable/hellokitty"/>
+
+        <LinearLayout
+            android:id="@+id/login_form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            xmlns:android="http://schemas.android.com/apk/res/android">
+
+            <EditText
+                android:id="@+id/email"
+                android:hint="Email"
+                android:textSize="15pt"
+                android:inputType="textWebEmailAddress"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8pt"
+                android:layout_marginRight="8pt"
+                android:layout_marginTop="10dp"
+                android:minHeight="33dp">
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/password"
+                android:hint="Password"
+                android:textSize="16sp"
+                android:password="true"
+                android:inputType="textPassword"
+                android:imeOptions="actionGo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:minHeight="33dp">
+            </EditText>
+
+
+            <Button
+                android:id="@+id/loginSubmitButton"
+                android:textColor="#ffffff"
+                android:layout_marginTop="13dp"
+                android:fontFamily="roboto-medium"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Login" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
