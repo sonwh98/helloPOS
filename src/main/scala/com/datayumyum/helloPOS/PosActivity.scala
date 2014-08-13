@@ -19,8 +19,8 @@ import android.widget._
 
 import scala.collection.mutable
 
-class MainActivity extends Activity {
-  val TAG = "com.datayumyum.pos.MainActivity"
+class PosActivity extends Activity {
+  val TAG = "com.datayumyum.pos.PosActivity"
   val currencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
   lazy val store = Store.findById("17592186045418")
   lazy val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
@@ -75,7 +75,7 @@ class MainActivity extends Activity {
           val (quantity: Int, item: Product) = ShoppingCart.lineItems(position)
 
           Log.i(TAG, f"longClick ${quantity} ${item.name}")
-          val builder: AlertDialog.Builder = new AlertDialog.Builder(MainActivity.this)
+          val builder: AlertDialog.Builder = new AlertDialog.Builder(PosActivity.this)
           item.ingredients match {
             case Some(ingredients: List[Product]) => {
               val ingredientList: Array[CharSequence] = ingredients.map { p: Product => p.name}.toArray[CharSequence]

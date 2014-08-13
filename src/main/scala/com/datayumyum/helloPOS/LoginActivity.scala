@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import EventHandlers._
 
@@ -18,7 +17,7 @@ class LoginActivity extends Activity {
     setContentView(R.layout.login_activity)
     loginButton.onClick { () =>
       Log.i(TAG, s"${loginButton} pressed")
-      val intent = new Intent(this, classOf[MainActivity]);
+      val intent = new Intent(this, classOf[PosActivity]);
       startActivity(intent)
     }
 
