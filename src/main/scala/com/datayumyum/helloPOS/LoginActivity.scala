@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import EventHandlers._
+import com.datayumyum.helloPOS.EventHandlers._
 
 class LoginActivity extends Activity {
   val TAG = "com.datayumyum.helloPOS.LoginActivity"
@@ -20,6 +20,5 @@ class LoginActivity extends Activity {
       val intent = new Intent(this, classOf[PosActivity]);
       startActivity(intent)
     }
-
   }
 }
