@@ -5,10 +5,10 @@ import android.view.View
 object EventHandlers {
 
   implicit class OnClickHandler(view: View) {
-    def onClick(action: () => Any) = {
+    def onClick(action:  => Unit) = {
       view.setOnClickListener(new View.OnClickListener() {
         def onClick(v: View) = {
-          action()
+          action
         }
       })
     }

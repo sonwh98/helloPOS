@@ -15,7 +15,7 @@ class LoginActivity extends Activity {
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.login_activity)
-    loginButton.onClick { () =>
+    loginButton.onClick {
       Log.i(TAG, s"${loginButton} pressed")
       val intent = new Intent(this, classOf[PosActivity]);
       startActivity(intent)

@@ -48,7 +48,7 @@ class PosActivity extends Activity {
           val categoryButton: Button = new Button(getApplicationContext())
           categoryButton.setText(category)
           categoryButton.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, 100))
-          categoryButton.onClick { () =>
+          categoryButton.onClick {
             gridView.setAdapter(gridAdapters(category))
           }
           categoryContainer.addView(categoryButton)
@@ -127,7 +127,7 @@ class PosActivity extends Activity {
       buttonIdList.foreach {
         id =>
           val button = findViewById(id).asInstanceOf[Button]
-          button.onClick { () =>
+          button.onClick {
             Accumulator.push(button.getText().toString())
           }
       }
@@ -138,7 +138,9 @@ class PosActivity extends Activity {
           button.setPadding(50, 50, 50, 50)
       }
 
-      findViewById(R.id.clearButton).onClick { () => Accumulator.reset()}
+      findViewById(R.id.clearButton).onClick {
+        Accumulator.reset()
+      }
 
       val submitOrder = () => {
         val tender: Double = Accumulator.pop()
@@ -154,9 +156,13 @@ class PosActivity extends Activity {
       val cashButton = findViewById(R.id.cashButton)
       val creditButton = findViewById(R.id.creditButton)
 
-      cashButton.onClick { () => submitOrder()}
+      cashButton.onClick {
+        submitOrder()
+      }
 
-      creditButton.onClick { () => submitOrder()}
+      creditButton.onClick {
+        submitOrder()
+      }
     }
     thread {
       configureCategories()
