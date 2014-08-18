@@ -71,54 +71,49 @@ class PosActivity extends Activity {
         }
       })
 
-      val longClickListener = new OnItemLongClickListener() {
-        override def onItemLongClick(parent: AdapterView[_], view: View, position: Int, id: Long): Boolean = {
-          val (quantity: Int, item: Product) = ShoppingCart.lineItems(position)
-
-          Log.i(TAG, f"longClick ${quantity} ${item.name}")
-          val builder: AlertDialog.Builder = new AlertDialog.Builder(PosActivity.this)
-          item.ingredients match {
-            case Some(ingredients: List[Product]) => {
-              val ingredientList: Array[CharSequence] = ingredients.map { p: Product => p.name}.toArray[CharSequence]
-              val checkedItems = ingredientList.map {
-                s: CharSequence => false
-              }.toArray[Boolean]
-
-              val ingredientSelectionListener = new OnMultiChoiceClickListener {
-                var ingredientSelected: Array[String] = Array()
-
-                override def onClick(dialogInterface: DialogInterface, indexSelected: Int, isChecked: Boolean) {
-                  if (isChecked) {
-                    val ingredient: String = ingredientList(indexSelected).asInstanceOf[String]
-                    Log.i(TAG, s"adding $ingredient")
-                    ingredientSelected = ingredientSelected ++ Array(ingredient)
-                  }
-                }
-              }
-              builder.setMultiChoiceItems(ingredientList, checkedItems, ingredientSelectionListener)
-              builder.setTitle(f"Ingredients for ${item.name}").setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                override def onClick(dialog: DialogInterface, which: Int): Unit = {
-                  val selected: Array[String] = ingredientSelectionListener.ingredientSelected
-                  selected.foreach { item => Log.i(TAG, item)}
-                }
-              })
-              builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                override def onClick(dialog: DialogInterface, which: Int): Unit = {
-                  Log.i(TAG, "negative Dialog onclick")
-                }
-              })
-
-              builder.create().show()
-            }
-            case None => Log.d(TAG, s"{$item.name} has no ingredients")
-          }
-          return true
-        }
-      }
-
       listView.setOnTouchListener(touchListener)
       listView.setOnScrollListener(touchListener.makeScrollListener())
-      listView.setOnItemLongClickListener(longClickListener)
+      listView.onItemLongClick{(position: Int) => {
+        val (quantity: Int, item: Product) = ShoppingCart.lineItems(position)
+
+        Log.i(TAG, f"longClick ${quantity} ${item.name}")
+        val builder: AlertDialog.Builder = new AlertDialog.Builder(PosActivity.this)
+        item.ingredients match {
+          case Some(ingredients: List[Product]) => {
+            val ingredientList: Array[CharSequence] = ingredients.map { p: Product => p.name}.toArray[CharSequence]
+            val checkedItems = ingredientList.map {
+              s: CharSequence => false
+            }.toArray[Boolean]
+
+            val ingredientSelectionListener = new OnMultiChoiceClickListener {
+              var ingredientSelected: Array[String] = Array()
+
+              override def onClick(dialogInterface: DialogInterface, indexSelected: Int, isChecked: Boolean) {
+                if (isChecked) {
+                  val ingredient: String = ingredientList(indexSelected).asInstanceOf[String]
+                  Log.i(TAG, s"adding $ingredient")
+                  ingredientSelected = ingredientSelected ++ Array(ingredient)
+                }
+              }
+            }
+            builder.setMultiChoiceItems(ingredientList, checkedItems, ingredientSelectionListener)
+            builder.setTitle(f"Ingredients for ${item.name}").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+              override def onClick(dialog: DialogInterface, which: Int): Unit = {
+                val selected: Array[String] = ingredientSelectionListener.ingredientSelected
+                selected.foreach { item => Log.i(TAG, item)}
+              }
+            })
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+              override def onClick(dialog: DialogInterface, which: Int): Unit = {
+                Log.i(TAG, "negative Dialog onclick")
+              }
+            })
+
+            builder.create().show()
+          }
+          case None => Log.d(TAG, s"{$item.name} has no ingredients")
+        }
+      }}
 
     }
     def configureNumberPad() {
