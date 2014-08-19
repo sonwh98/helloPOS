@@ -8,7 +8,6 @@ import android.animation.{ArgbEvaluator, ValueAnimator}
 import android.app.{Activity, AlertDialog}
 import android.content.DialogInterface
 import android.content.DialogInterface.OnMultiChoiceClickListener
-import android.debug.hv.ViewServer
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup.LayoutParams
@@ -30,7 +29,6 @@ class PosActivity extends Activity {
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main_activity)
-    ViewServer.get(this).addWindow(this)
 
     def configureCategories() {
       val catalog: Map[String, List[Product]] = store.catalog
@@ -154,17 +152,6 @@ class PosActivity extends Activity {
     }
     configureLineItemView()
     configureNumberPad()
-  }
-
-
-  override def onDestroy() {
-    super.onDestroy()
-    ViewServer.get(this).removeWindow(this)
-  }
-
-  override def onResume() {
-    super.onResume()
-    ViewServer.get(this).setFocusedWindow(this)
   }
 
   class GridAdapter(items: List[Product]) extends BaseAdapter {
