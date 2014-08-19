@@ -16,7 +16,7 @@ import android.view._
 import android.widget
 import android.widget._
 import com.datayumyum.helloPOS.EventHandlers._
-import com.datayumyum.helloPOS.Util.thread
+import com.datayumyum.helloPOS.Util.{thread, uiThread}
 
 import scala.collection.mutable
 
@@ -240,12 +240,6 @@ class PosActivity extends Activity {
       return imageView
     }
   }
-
-  def uiThread[F](f: => F) = runOnUiThread(new Runnable() {
-    def run() {
-      f
-    }
-  })
 
   object ShoppingCart extends BaseAdapter {
     val lineItems = new mutable.ArrayBuffer[(Int, Product)]()
