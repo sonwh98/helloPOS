@@ -6,7 +6,7 @@ import android.widget.{AdapterView, ListView}
 
 object EventHandlers {
 
-  implicit class OnClickHandler(view: View) {
+  implicit class ViewOnEventHandlers(view: View) {
     def onClick(action: => Unit): Unit = {
       view.setOnClickListener(new View.OnClickListener() {
         override def onClick(v: View) = {
