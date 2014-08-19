@@ -212,12 +212,8 @@ class PosActivity extends Activity {
           case _ => itemButton.setAlpha(1.0f)
         }
       }
-      imageButton.onTouch {
-        itemClickCallBack
-      }
-      itemLabel.onTouch {
-        itemClickCallBack
-      }
+      imageButton.onTouch(itemClickCallBack)
+      itemLabel.onTouch(itemClickCallBack)
 
       itemLabel.setText(item.name)
       itemButton
