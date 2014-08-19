@@ -16,10 +16,10 @@ object Util {
   }
 
   lazy val handler = new Handler(Looper.getMainLooper)
-  lazy val foouiThread = Looper.getMainLooper.getThread
+  lazy val mainUiThread = Looper.getMainLooper.getThread
 
   def uiThread[T >: Null](f: => T): T = {
-    if (foouiThread == Thread.currentThread) {
+    if (mainUiThread == Thread.currentThread) {
       return f
     } else {
       handler.post(new Runnable() {
