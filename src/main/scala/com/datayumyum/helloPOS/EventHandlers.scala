@@ -1,6 +1,6 @@
 package com.datayumyum.helloPOS
 
-import android.view.View
+import android.view.{MotionEvent, View}
 import android.widget.AdapterView.OnItemLongClickListener
 import android.widget.{AdapterView, ListView}
 
@@ -9,8 +9,17 @@ object EventHandlers {
   implicit class OnClickHandler(view: View) {
     def onClick(action: => Unit): Unit = {
       view.setOnClickListener(new View.OnClickListener() {
-        def onClick(v: View) = {
+        override def onClick(v: View) = {
           action
+        }
+      })
+    }
+
+    def onTouch(action: MotionEvent => Unit): Unit = {
+      view.setOnTouchListener(new View.OnTouchListener() {
+        override def onTouch(view: View, event: MotionEvent): Boolean = {
+          action(event)
+          true
         }
       })
     }

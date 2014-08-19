@@ -185,7 +185,7 @@ class PosActivity extends Activity {
       val itemLabel: TextView = itemButton.findViewById(R.id.item_label).asInstanceOf[TextView]
 
       new DownloadImageTask(imageButton).execute(item.imageURL)
-      val itemClickCallBack = (v: View, event: MotionEvent) => {
+      val itemClickCallBack = (event: MotionEvent) => {
         val actionType = event.getAction
         Log.i(TAG, actionType.toString)
         actionType match {
@@ -210,10 +210,9 @@ class PosActivity extends Activity {
           }
           case _ => itemButton.setAlpha(1.0f)
         }
-        true
       }
-      imageButton.setOnTouchListener(itemClickCallBack)
-      itemLabel.setOnTouchListener(itemClickCallBack)
+      imageButton.onTouch{itemClickCallBack}
+      itemLabel.onTouch{itemClickCallBack}
 
       itemLabel.setText(item.name)
       itemButton
@@ -234,12 +233,6 @@ class PosActivity extends Activity {
     override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
       val imageView: View = itemButtonList(position)
       return imageView
-    }
-  }
-
-  implicit class OnTouchListener(onTouchCallBack: (View, MotionEvent) => Boolean) extends View.OnTouchListener {
-    override def onTouch(view: View, event: MotionEvent): Boolean = {
-      onTouchCallBack(view, event)
     }
   }
 
