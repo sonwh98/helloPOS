@@ -345,7 +345,6 @@ class PosActivity extends Activity {
     }
 
     def checkout() {
-      //      val store = Store("QT Sandwich", Address("48 N 10th St", "Philadelphia", "PA", "19107"), "(267)639-4520", "http://www.qtshop.com")
       thread {
         try {
           val receipt: Receipt = Receipt(store, lineItems.toList)
