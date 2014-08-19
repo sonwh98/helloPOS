@@ -59,20 +59,11 @@ class PosActivity extends Activity {
       val listView: ListView = findViewById(R.id.lineItemListView).asInstanceOf[ListView]
       listView.setAdapter(ShoppingCart)
 
-      val touchListener = new SwipeDismissListViewTouchListener(listView, new SwipeDismissListViewTouchListener.DismissCallbacks() {
-        override def canDismiss(position: Int): Boolean = {
-          return true
+      listView.onDismiss { reverseSortedPositions: Array[Int] =>
+        for (position <- reverseSortedPositions) {
+          ShoppingCart.remove(position)
         }
-
-        override def onDismiss(listView: ListView, reverseSortedPositions: Array[Int]) {
-          for (position <- reverseSortedPositions) {
-            ShoppingCart.remove(position)
-          }
-        }
-      })
-
-      listView.setOnTouchListener(touchListener)
-      listView.setOnScrollListener(touchListener.makeScrollListener())
+      }
       listView.onItemLongClick { (position: Int) => {
         val (quantity: Int, item: Product) = ShoppingCart.lineItems(position)
 

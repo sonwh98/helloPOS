@@ -25,14 +25,30 @@ object EventHandlers {
     }
   }
 
-  implicit class OnItemLongClickHandler(view: ListView) {
+  implicit class OnItemLongClickHandler(listView: ListView) {
     def onItemLongClick(action: Int => Unit): Unit = {
-      view.setOnItemLongClickListener(new OnItemLongClickListener() {
+      listView.setOnItemLongClickListener(new OnItemLongClickListener() {
         override def onItemLongClick(parent: AdapterView[_], view: View, position: Int, id: Long): Boolean = {
           action(position)
           true
         }
       })
+    }
+
+    def onDismiss(action: Array[Int] => Unit): Unit = {
+      val touchListener = new SwipeDismissListViewTouchListener(listView, new SwipeDismissListViewTouchListener.DismissCallbacks() {
+        override def canDismiss(position: Int): Boolean = {
+          return true
+        }
+
+        override def onDismiss(listView: ListView, reverseSortedPositions: Array[Int]) {
+          action(reverseSortedPositions)
+        }
+      })
+
+      listView.setOnTouchListener(touchListener)
+      listView.setOnScrollListener(touchListener.makeScrollListener())
+
     }
   }
 
