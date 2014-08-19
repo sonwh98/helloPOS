@@ -36,8 +36,5 @@ object EventHandlers {
     }
   }
 
-  implicit def toRunnable[F](f: => F): Runnable = new Runnable() {
-    def run() = f
-  }
 }
 
