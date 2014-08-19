@@ -56,15 +56,15 @@ class PosActivity extends Activity {
       }
     }
     def configureLineItemView() {
-      val listView: ListView = findViewById(R.id.lineItemListView).asInstanceOf[ListView]
-      listView.setAdapter(ShoppingCart)
+      val lineItemListView: ListView = findViewById(R.id.lineItemListView).asInstanceOf[ListView]
+      lineItemListView.setAdapter(ShoppingCart)
 
-      listView.onDismiss { reverseSortedPositions: Array[Int] =>
+      lineItemListView.onDismiss { reverseSortedPositions: Array[Int] =>
         for (position <- reverseSortedPositions) {
           ShoppingCart.remove(position)
         }
       }
-      listView.onItemLongClick { (position: Int) => {
+      lineItemListView.onItemLongClick { (position: Int) => {
         val (quantity: Int, item: Product) = ShoppingCart.lineItems(position)
 
         Log.i(TAG, f"longClick ${quantity} ${item.name}")
