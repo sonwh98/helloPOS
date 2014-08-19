@@ -154,8 +154,8 @@ class PosActivity extends Activity {
     configureNumberPad()
   }
 
-  class GridAdapter(items: List[Product]) extends BaseAdapter {
-    val itemButtonList: List[View] = items.map((item: Product) => {
+  class GridAdapter(products: List[Product]) extends BaseAdapter {
+    val itemButtonList: List[View] = products.map((item: Product) => {
       val inflater: LayoutInflater = getLayoutInflater()
       val itemButton: View = inflater.inflate(R.layout.item_button, null)
       val imageButton: ImageButton = itemButton.findViewById(R.id.item_image_button).asInstanceOf[ImageButton]
