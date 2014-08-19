@@ -12,4 +12,12 @@ object Util {
   def calculateTax(taxRate: Double, price: Double): Double = {
     taxRate * price
   }
+
+  def thread(f: => Unit) = (new Thread(new Runnable() {
+    override def run() {
+      f
+    }
+  })).start
+
+
 }

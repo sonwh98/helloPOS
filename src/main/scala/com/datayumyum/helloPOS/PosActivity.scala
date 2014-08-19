@@ -14,9 +14,9 @@ import android.util.Log
 import android.view.ViewGroup.LayoutParams
 import android.view._
 import android.widget
-import android.widget.AdapterView.OnItemLongClickListener
 import android.widget._
 import com.datayumyum.helloPOS.EventHandlers._
+import com.datayumyum.helloPOS.Util.thread
 
 import scala.collection.mutable
 
@@ -73,7 +73,7 @@ class PosActivity extends Activity {
 
       listView.setOnTouchListener(touchListener)
       listView.setOnScrollListener(touchListener.makeScrollListener())
-      listView.onItemLongClick{(position: Int) => {
+      listView.onItemLongClick { (position: Int) => {
         val (quantity: Int, item: Product) = ShoppingCart.lineItems(position)
 
         Log.i(TAG, f"longClick ${quantity} ${item.name}")
@@ -113,7 +113,8 @@ class PosActivity extends Activity {
           }
           case None => Log.d(TAG, s"{$item.name} has no ingredients")
         }
-      }}
+      }
+      }
 
     }
     def configureNumberPad() {
@@ -211,8 +212,12 @@ class PosActivity extends Activity {
           case _ => itemButton.setAlpha(1.0f)
         }
       }
-      imageButton.onTouch{itemClickCallBack}
-      itemLabel.onTouch{itemClickCallBack}
+      imageButton.onTouch {
+        itemClickCallBack
+      }
+      itemLabel.onTouch {
+        itemClickCallBack
+      }
 
       itemLabel.setText(item.name)
       itemButton
@@ -235,12 +240,6 @@ class PosActivity extends Activity {
       return imageView
     }
   }
-
-  def thread[F](f: => F) = (new Thread(new Runnable() {
-    def run() {
-      f
-    }
-  })).start
 
   def uiThread[F](f: => F) = runOnUiThread(new Runnable() {
     def run() {
