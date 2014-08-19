@@ -186,7 +186,7 @@ class PosActivity extends Activity {
       val itemLabel: TextView = itemButton.findViewById(R.id.item_label).asInstanceOf[TextView]
 
       new DownloadImageTask(imageButton).execute(item.imageURL)
-      val itemClickCallBack = (event: MotionEvent) => {
+      val itemClickHandler = (event: MotionEvent) => {
         val actionType = event.getAction
         Log.i(TAG, actionType.toString)
         actionType match {
@@ -212,8 +212,8 @@ class PosActivity extends Activity {
           case _ => itemButton.setAlpha(1.0f)
         }
       }
-      imageButton.onTouch(itemClickCallBack)
-      itemLabel.onTouch(itemClickCallBack)
+      imageButton.onTouch(itemClickHandler)
+      itemLabel.onTouch(itemClickHandler)
 
       itemLabel.setText(item.name)
       itemButton
