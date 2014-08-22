@@ -16,16 +16,16 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="100pt"
-            android:layout_height="100pt"
-            android:layout_marginTop="52dp"
+            android:layout_width="70pt"
+            android:layout_height="70pt"
+            android:layout_marginTop="10dp"
             android:src="@drawable/hellokitty"/>
 
         <LinearLayout
             android:id="@+id/login_form"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical"
             android:gravity="center_horizontal"
             xmlns:android="http://schemas.android.com/apk/res/android">
@@ -33,9 +33,9 @@
             <EditText
                 android:id="@+id/email"
                 android:hint="Email"
-                android:textSize="15pt"
+                android:textSize="16sp"
                 android:inputType="textWebEmailAddress"
-                android:layout_width="fill_parent"
+                android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8pt"
                 android:layout_marginRight="8pt"
@@ -52,7 +52,7 @@
                 android:password="true"
                 android:inputType="textPassword"
                 android:imeOptions="actionGo"
-                android:layout_width="fill_parent"
+                android:layout_width="100sp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
