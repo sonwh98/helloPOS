@@ -1,17 +1,18 @@
 package com.datayumyum.helloPOS
 
 import java.net.URL
-import java.util.concurrent.{ThreadPoolExecutor, TimeUnit, LinkedBlockingQueue}
+import java.util.concurrent.{LinkedBlockingQueue, ThreadPoolExecutor, TimeUnit}
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.{EditText, Toast, Button}
-import com.datayumyum.helloPOS.EventHandlers._
+import android.widget.{Button, EditText, Toast}
+import com.datayumyum.helloPOS.EventHandlers.ViewOnEventHandlers
+import com.datayumyum.helloPOS.Util.uiThread
 
-import scala.io.Source
 import scala.concurrent._
+import scala.io.Source
 
 class LoginActivity extends Activity {
   val TAG = "com.datayumyum.helloPOS.LoginActivity"
@@ -31,24 +32,33 @@ class LoginActivity extends Activity {
       val email = emailEditText.getText()
       val password = passwordEditText.getText()
       val url: String = s"http://hive.kaicode.com:3000/pos/authenticate?email=$email&password=$password"
-      val f: Future[String] = Future {
+      val doLogin: Future[String] = Future {
         val result: String = Source.fromInputStream(new URL(url).openStream).mkString
         result
       }
 
-      f.onSuccess {
+      val failedMsg: String = s"cannot login ${url}"
+      doLogin.onSuccess {
         case result =>
           if (result == "true") {
-            Log.e(TAG, result.toString())
-            val intent = new Intent(this, classOf[PosActivity]);
+            Log.e(TAG, result)
+            val intent = new Intent(LoginActivity.this, classOf[PosActivity]);
             startActivity(intent)
           } else {
-            Log.w(TAG, s"cannot login ${url}")
+            Log.w(TAG, failedMsg)
+            uiThread {
+              Toast.makeText(LoginActivity.this, failedMsg, Toast.LENGTH_LONG).show()
+            }
           }
       }
 
-      f.onFailure {
-        case result => Log.w(TAG, s"cannot login ${url}")
+      doLogin.onFailure {
+        case result => {
+          Log.w(TAG, failedMsg)
+          uiThread {
+            Toast.makeText(LoginActivity.this, failedMsg, Toast.LENGTH_LONG).show()
+          }
+        }
       }
     }
   }
