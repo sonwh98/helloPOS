@@ -239,10 +239,10 @@ class PosActivity extends Activity {
       if (view == null) {
         view = inflater.inflate(R.layout.line_item, null);
         val quantityTextView = view.findViewById(R.id.QUANTITY_CELL)
-        val nameTextView = view.findViewById(R.id.DESCRIPTION_CELL)
+        val descriptionTextView = view.findViewById(R.id.DESCRIPTION_CELL)
         val priceTextView = view.findViewById(R.id.PRICE_CELL)
         val subTotalTextView = view.findViewById(R.id.SUB_TOTAL_CELL)
-        view.setTag((quantityTextView, nameTextView, priceTextView, subTotalTextView))
+        view.setTag((quantityTextView, descriptionTextView, priceTextView, subTotalTextView))
       }
       if (position > lineItemViews.size - 1) {
         lineItemViews += view
@@ -250,10 +250,10 @@ class PosActivity extends Activity {
         lineItemViews(position) = view
       }
 
-      val (quantityTextView: TextView, nameTextView: TextView, priceTextView: TextView, subTotalTextView: TextView) = view.getTag()
+      val (quantityTextView: TextView, descriptionTextView: TextView, priceTextView: TextView, subTotalTextView: TextView) = view.getTag()
       val (quantity, item) = lineItems(position)
       quantityTextView.setText(quantity.toString)
-      nameTextView.setText(item.name)
+      descriptionTextView.setText(item.name)
       priceTextView.setText(currencyFormat.format(item.price))
       val subTotal = quantity * item.price
       subTotalTextView.setText(currencyFormat.format(subTotal))
