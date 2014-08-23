@@ -45,8 +45,6 @@ android {
 dependencies {
     compile 'org.scala-lang:scala-library:2.11.2'
     compile 'org.scala-lang:scala-compiler:2.11.2'
-    compile 'com.google.android:support-v4:r7'
     compile 'com.rabbitmq:amqp-client:3.3.2'
     compile files('lib/StarIOPort3.1.jar')
-//    compile files('lib/json.jar')
 }
