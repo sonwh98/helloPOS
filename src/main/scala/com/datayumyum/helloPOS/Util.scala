@@ -3,10 +3,10 @@ package com.datayumyum.helloPOS
 import android.os.{Handler, Looper}
 
 object Util {
-  def sumLineItems(lineItems: Seq[(Int, Product)]): Double = {
+  def sumLineItems(lineItems: Seq[LineItem]): Double = {
     lineItems.map {
-      case (quantity, item) => {
-        quantity * item.price
+      case lineItem: LineItem => {
+        lineItem.quantity * lineItem.product.price
       }
     }.sum
   }

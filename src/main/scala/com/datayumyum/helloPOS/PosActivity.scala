@@ -63,11 +63,13 @@ class PosActivity extends Activity {
         }
       }
       lineItemListView.onItemLongClick { (position: Int) => {
-        val (quantity: Int, item: Product) = ShoppingCart.lineItems(position)
+        val lineItem: LineItem = ShoppingCart.lineItems(position)
+        val quantity: Int = lineItem.quantity
+        val product: Product = lineItem.product
 
-        Log.i(TAG, f"longClick ${quantity} ${item.name}")
+        Log.i(TAG, f"longClick ${quantity} ${product.name}")
         val builder: AlertDialog.Builder = new AlertDialog.Builder(PosActivity.this)
-        item.ingredients match {
+        product.ingredients match {
           case Some(ingredients: List[Product]) => {
             val ingredientList: Array[CharSequence] = ingredients.map { p: Product => p.name}.toArray[CharSequence]
             val checkedItems = ingredientList.map {
@@ -86,7 +88,7 @@ class PosActivity extends Activity {
               }
             }
             builder.setMultiChoiceItems(ingredientList, checkedItems, ingredientSelectionListener)
-            builder.setTitle(f"Ingredients for ${item.name}").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            builder.setTitle(f"Ingredients for ${product.name}").setPositiveButton("OK", new DialogInterface.OnClickListener() {
               override def onClick(dialog: DialogInterface, which: Int): Unit = {
                 val selected: Array[String] = ingredientSelectionListener.ingredientSelected
                 selected.foreach { item => Log.i(TAG, item)}
@@ -100,7 +102,7 @@ class PosActivity extends Activity {
 
             builder.create().show()
           }
-          case None => Log.d(TAG, s"{$item.name} has no ingredients")
+          case None => Log.d(TAG, s"{$product.name} has no ingredients")
         }
       }
       }
@@ -214,13 +216,12 @@ class PosActivity extends Activity {
   }
 
   object ShoppingCart extends BaseAdapter {
-    val lineItems = new mutable.ArrayBuffer[(Int, Product)]()
+    val lineItems = new mutable.ArrayBuffer[LineItem]()
     val lineItemViews = mutable.MutableList.empty[View]
     val lineItemListView = findViewById(R.id.lineItemListView).asInstanceOf[ListView]
     val TAG = "com.datayumyum.pos.ShoppingCart"
     val inflater: LayoutInflater = getLayoutInflater()
     var reset: Boolean = true
-
 
     override def getCount: Int = {
       return lineItems.size
@@ -251,18 +252,20 @@ class PosActivity extends Activity {
       }
 
       val (quantityTextView: TextView, descriptionTextView: TextView, priceTextView: TextView, subTotalTextView: TextView) = view.getTag()
-      val (quantity, item) = lineItems(position)
+      val lineItem: LineItem = lineItems(position)
+      val quantity = lineItem.quantity
+      val product = lineItem.product
       quantityTextView.setText(quantity.toString)
-      descriptionTextView.setText(item.name)
-      priceTextView.setText(currencyFormat.format(item.price))
-      val subTotal = quantity * item.price
+      descriptionTextView.setText(product.name)
+      priceTextView.setText(currencyFormat.format(product.price))
+      val subTotal = quantity * product.price
       subTotalTextView.setText(currencyFormat.format(subTotal))
 
       return view
     }
 
-    def add(item: Product, quantity: Int = 1) {
-      lineItems.append((quantity, item))
+    def add(product: Product, quantity: Int = 1) {
+      lineItems.append(new LineItem(quantity, product, None))
       displayTotals()
       notifyDataSetChanged()
     }

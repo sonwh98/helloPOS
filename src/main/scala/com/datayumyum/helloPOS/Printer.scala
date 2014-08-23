@@ -48,16 +48,16 @@ object Printer {
       var y = textSize
       receipt.lineItems.foreach {
         lineItem =>
-          val quantity: Int = lineItem._1
-          val item: Product = lineItem._2
-          val subTotal = item.price * quantity
+          val quantity: Int = lineItem.quantity
+          val product: Product = lineItem.product
+          val subTotal = product.price * quantity
 
           val quantityStr: String = quantity.toString
           canvas.drawText(quantityStr, x, y, textpaint)
 
           val padding = 2
           x = x + textpaint.measureText(quantityStr) + padding
-          canvas.drawText(item.name, x, y, textpaint)
+          canvas.drawText(product.name, x, y, textpaint)
 
           val subTotalStr: String = "%.2f".format(subTotal)
           x = paperWidth - textpaint.measureText(subTotalStr)
