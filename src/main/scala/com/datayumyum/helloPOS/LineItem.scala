@@ -1,3 +1,3 @@
 package com.datayumyum.helloPOS
 
-case class LineItem(quantity: Int, product: Product, customIngredients: Option[List[Product]])
+case class LineItem(quantity: Int, product: Product, var customIngredients: Option[List[Product]])

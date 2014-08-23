@@ -70,28 +70,27 @@ class PosActivity extends Activity {
         Log.i(TAG, f"longClick ${quantity} ${product.name}")
         val builder: AlertDialog.Builder = new AlertDialog.Builder(PosActivity.this)
         product.ingredients match {
-          case Some(ingredients: List[Product]) => {
-            val ingredientList: Array[CharSequence] = ingredients.map { p: Product => p.name}.toArray[CharSequence]
-            val checkedItems = ingredientList.map {
-              s: CharSequence => false
-            }.toArray[Boolean]
+          case Some(ingredientList: List[Product]) => {
+            val ingredientListAsString: Array[CharSequence] = ingredientList.map { p: Product => p.name}.toArray[CharSequence]
+            val checkedItems = ingredientList.map { product => false}.toArray[Boolean]
 
             val ingredientSelectionListener = new OnMultiChoiceClickListener {
-              var ingredientSelected: Array[String] = Array()
+              var ingredientSelected: Array[Product] = Array()
 
               override def onClick(dialogInterface: DialogInterface, indexSelected: Int, isChecked: Boolean) {
                 if (isChecked) {
-                  val ingredient: String = ingredientList(indexSelected).asInstanceOf[String]
-                  Log.i(TAG, s"adding $ingredient")
+                  val ingredient = ingredientList(indexSelected)
+                  Log.i(TAG, s"adding ${ingredient.name}")
                   ingredientSelected = ingredientSelected ++ Array(ingredient)
                 }
               }
             }
-            builder.setMultiChoiceItems(ingredientList, checkedItems, ingredientSelectionListener)
+            builder.setMultiChoiceItems(ingredientListAsString, checkedItems, ingredientSelectionListener)
             builder.setTitle(f"Ingredients for ${product.name}").setPositiveButton("OK", new DialogInterface.OnClickListener() {
               override def onClick(dialog: DialogInterface, which: Int): Unit = {
-                val selected: Array[String] = ingredientSelectionListener.ingredientSelected
-                selected.foreach { item => Log.i(TAG, item)}
+                val selected: Array[Product] = ingredientSelectionListener.ingredientSelected
+                selected.foreach { product => Log.i(TAG, product.name)}
+                lineItem.customIngredients = Some(selected.toList)
               }
             })
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
