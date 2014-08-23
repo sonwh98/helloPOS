@@ -262,20 +262,7 @@ class PosActivity extends Activity {
     }
 
     def add(item: Product, quantity: Int = 1) {
-      val (currentQuantity, foundItem) = lineItems.find {
-        case (quantity1, item1) => item == item1
-      }.getOrElse((0, item))
-      val i = lineItems.indexOf((currentQuantity, foundItem))
-      if (i > -1) {
-        val updatedQuantity = currentQuantity + quantity
-        lineItems(i) = (updatedQuantity, item)
-        val visible: Boolean = i >= lineItemListView.getFirstVisiblePosition && i <= lineItemListView.getLastVisiblePosition
-        if (visible) {
-          animateView(lineItemViews(i))
-        }
-      } else {
-        lineItems.append((quantity, item))
-      }
+      lineItems.append((quantity, item))
       displayTotals()
       notifyDataSetChanged()
     }
