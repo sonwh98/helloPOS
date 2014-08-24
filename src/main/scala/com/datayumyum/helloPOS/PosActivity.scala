@@ -83,9 +83,11 @@ class PosActivity extends Activity {
               var ingredientSelected: List[Product] = lineItem.customIngredients.getOrElse(List())
 
               override def onClick(dialogInterface: DialogInterface, indexSelected: Int, isChecked: Boolean) {
+                val ingredient = ingredientList(indexSelected)
                 if (isChecked) {
-                  val ingredient = ingredientList(indexSelected)
                   ingredientSelected = ingredientSelected ++ List(ingredient)
+                } else {
+                  ingredientSelected = ingredientSelected.filter { product => product != ingredient}
                 }
               }
             }
