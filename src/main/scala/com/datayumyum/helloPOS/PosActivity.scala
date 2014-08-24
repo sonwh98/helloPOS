@@ -74,9 +74,7 @@ class PosActivity extends Activity {
 
             val checkedItems = ingredientList.map { product =>
               lineItem.customIngredients match {
-                case Some(customIngredients: List[Product]) => {
-                  customIngredients.contains(product)
-                }
+                case Some(customIngredients: List[Product]) => customIngredients.contains(product)
                 case None => false
               }
             }.toArray[Boolean]
