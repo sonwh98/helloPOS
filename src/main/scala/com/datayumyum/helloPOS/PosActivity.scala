@@ -92,20 +92,17 @@ class PosActivity extends Activity {
               }
             }
             builder.setMultiChoiceItems(ingredientListAsString, checkedItems, ingredientSelectionListener)
-            builder.setTitle(f"Ingredients for ${product.name}").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            builder.setTitle(f"Ingredient Customization for ${product.name}").setPositiveButton("OK", new DialogInterface.OnClickListener() {
               override def onClick(dialog: DialogInterface, which: Int): Unit = {
                 val selected: List[Product] = ingredientSelectionListener.ingredientSelected
-                selected.foreach { product => Log.i(TAG, product.name)}
                 if (!selected.isEmpty) {
                   lineItem.customIngredients = Some(selected.toList)
+                } else {
+                  lineItem.customIngredients = None
                 }
               }
             })
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-              override def onClick(dialog: DialogInterface, which: Int): Unit = {
-                Log.i(TAG, "negative Dialog onclick")
-              }
-            })
+
 
             builder.create().show()
           }
@@ -148,13 +145,9 @@ class PosActivity extends Activity {
       val cashButton = findViewById(R.id.cashButton)
       val creditButton = findViewById(R.id.creditButton)
 
-      cashButton.onClick {
-        submitOrder()
-      }
+      cashButton.onClick{submitOrder()}
 
-      creditButton.onClick {
-        submitOrder()
-      }
+      creditButton.onClick{submitOrder()}
     }
     thread {
       configureCategories()
