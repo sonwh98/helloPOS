@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup.LayoutParams
 import android.view._
-import android.widget
 import android.widget._
 import com.datayumyum.helloPOS.EventHandlers._
 import com.datayumyum.helloPOS.Util.{thread, uiThread}
@@ -145,9 +144,13 @@ class PosActivity extends Activity {
       val cashButton = findViewById(R.id.cashButton)
       val creditButton = findViewById(R.id.creditButton)
 
-      cashButton.onClick{submitOrder()}
+      cashButton.onClick {
+        submitOrder()
+      }
 
-      creditButton.onClick{submitOrder()}
+      creditButton.onClick {
+        submitOrder()
+      }
     }
     thread {
       configureCategories()
@@ -322,7 +325,7 @@ class PosActivity extends Activity {
           }
         } catch {
           case ex: Exception => uiThread {
-            widget.Toast.makeText(getApplicationContext(), f"printer not available ${ex.getMessage}", Toast.LENGTH_LONG).show()
+            Toast.makeText(PosActivity.this, f"printer not available ${ex.getMessage}", Toast.LENGTH_LONG).show()
           }
         }
       }
