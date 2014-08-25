@@ -31,32 +31,37 @@ class LoginActivity extends Activity {
     loginButton.onClick {
       val email = emailEditText.getText()
       val password = passwordEditText.getText()
-      val url: String = s"http://hive.kaicode.com:3000/pos/authenticate?email=$email&password=$password"
-      val doLogin: Future[String] = Future {
-        val result: String = Source.fromInputStream(new URL(url).openStream).mkString
-        result
-      }
+      if (email.length() == 0 && password.length() == 0) {
+        val intent = new Intent(LoginActivity.this, classOf[PosActivity]);
+        startActivity(intent)
+      } else {
+        val url: String = s"http://hive.kaicode.com:3000/pos/authenticate?email=$email&password=$password"
+        val doLogin: Future[String] = Future {
+          val result: String = Source.fromInputStream(new URL(url).openStream).mkString
+          result
+        }
 
-      val failedMsg: String = s"cannot login ${url}"
-      doLogin.onSuccess {
-        case result =>
-          if (result == "true") {
-            Log.e(TAG, result)
-            val intent = new Intent(LoginActivity.this, classOf[PosActivity]);
-            startActivity(intent)
-          } else {
+        val failedMsg: String = s"cannot login ${url}"
+        doLogin.onSuccess {
+          case result =>
+            if (result == "true") {
+              Log.e(TAG, result)
+              val intent = new Intent(LoginActivity.this, classOf[PosActivity]);
+              startActivity(intent)
+            } else {
+              Log.w(TAG, failedMsg)
+              uiThread {
+                Toast.makeText(LoginActivity.this, failedMsg, Toast.LENGTH_LONG).show()
+              }
+            }
+        }
+
+        doLogin.onFailure {
+          case result => {
             Log.w(TAG, failedMsg)
             uiThread {
               Toast.makeText(LoginActivity.this, failedMsg, Toast.LENGTH_LONG).show()
             }
-          }
-      }
-
-      doLogin.onFailure {
-        case result => {
-          Log.w(TAG, failedMsg)
-          uiThread {
-            Toast.makeText(LoginActivity.this, failedMsg, Toast.LENGTH_LONG).show()
           }
         }
       }
