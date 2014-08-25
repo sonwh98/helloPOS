@@ -4,7 +4,7 @@
     android:id="@+id/parent"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/login_background"
+    android:background="@drawable/background"
     >
     <LinearLayout
         android:id="@+id/header"
