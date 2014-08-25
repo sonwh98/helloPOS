@@ -23,7 +23,7 @@ class PosActivity extends Activity {
   val currencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
   lazy val store = Store.findById("17592186045418")
   lazy val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
-
+  lazy val lineItemListView: ListView = findViewById(R.id.lineItemListView).asInstanceOf[ListView]
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -53,7 +53,6 @@ class PosActivity extends Activity {
       }
     }
     def configureLineItemView() {
-      val lineItemListView: ListView = findViewById(R.id.lineItemListView).asInstanceOf[ListView]
       lineItemListView.setAdapter(ShoppingCart)
 
       lineItemListView.onDismiss { reverseSortedPositions: Array[Int] =>
@@ -99,6 +98,7 @@ class PosActivity extends Activity {
                 } else {
                   lineItem.customIngredients = None
                 }
+                ShoppingCart.notifyDataSetChanged()
               }
             })
 
@@ -169,7 +169,6 @@ class PosActivity extends Activity {
       new DownloadImageTask(imageButton).execute(item.imageURL)
       val itemClickHandler = (event: MotionEvent) => {
         val actionType = event.getAction
-        Log.i(TAG, actionType.toString)
         actionType match {
           case MotionEvent.ACTION_DOWN => {
             itemButton.setAlpha(0.5f)
@@ -248,21 +247,31 @@ class PosActivity extends Activity {
         val subTotalTextView = view.findViewById(R.id.SUB_TOTAL_CELL)
         view.setTag((quantityTextView, descriptionTextView, priceTextView, subTotalTextView))
       }
+
       if (position > lineItemViews.size - 1) {
         lineItemViews += view
       } else {
         lineItemViews(position) = view
       }
 
+
       val (quantityTextView: TextView, descriptionTextView: TextView, priceTextView: TextView, subTotalTextView: TextView) = view.getTag()
       val lineItem: LineItem = lineItems(position)
       val quantity = lineItem.quantity
       val product = lineItem.product
-      quantityTextView.setText(quantity.toString)
-      descriptionTextView.setText(product.name)
-      priceTextView.setText(currencyFormat.format(product.price))
+      quantityTextView.setText(quantity.toString.trim())
+
+      val descriptionStr = lineItem.customIngredients match {
+        case Some(customIngredients: List[Product]) => product.name + "\n+" + customIngredients.map {
+          _.name
+        }.reduce { (acc: String, name: String) => acc + "\n+" + name}
+        case None => product.name
+      }
+
+      descriptionTextView.setText(descriptionStr.trim())
+      priceTextView.setText(currencyFormat.format(product.price).trim())
       val subTotal = quantity * product.price
-      subTotalTextView.setText(currencyFormat.format(subTotal))
+      subTotalTextView.setText(currencyFormat.format(subTotal).trim())
 
       return view
     }
@@ -310,7 +319,10 @@ class PosActivity extends Activity {
     def remove(position: Int) {
       lineItems.remove(position)
       displayTotals()
-      notifyDataSetChanged()
+
+      //TODO investigate why notifyDataSetChanged() does not redraw the lineItems properly
+      //      notifyDataSetChanged()
+      lineItemListView.setAdapter(ShoppingCart) //This draws the lineItem properly after its been removed
     }
 
     def checkout() {
