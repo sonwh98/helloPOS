@@ -13,7 +13,7 @@ repositories {
     mavenCentral()
 }
 
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 apply plugin: 'android-scala'
 android {
     compileSdkVersion 20
