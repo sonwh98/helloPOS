@@ -328,7 +328,7 @@ class PosActivity extends Activity {
     def checkout() {
       thread {
         try {
-          val receipt: Receipt = Receipt(store, lineItems.toList)
+          val receipt: Order = Order(store, lineItems.toList)
           val receiptEdnString: String = receipt.toEdn()
           OrderMessenger.sendOrder(receiptEdnString)
           Printer.print(receipt)

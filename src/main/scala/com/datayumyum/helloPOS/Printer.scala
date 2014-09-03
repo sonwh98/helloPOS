@@ -10,7 +10,7 @@ object Printer {
 
   var port: StarIOPort = null
 
-  def print(receipt: Receipt) {
+  def print(receipt: Order) {
     val paint: Paint = new Paint
     paint.setStyle(Paint.Style.STROKE)
     paint.setColor(Color.BLACK)

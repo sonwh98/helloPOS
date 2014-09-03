@@ -1,6 +1,6 @@
 package com.datayumyum.helloPOS
 
-case class Receipt(store: Store, lineItems: List[LineItem]) {
+case class Order(store: Store, lineItems: List[LineItem]) {
   def subTotal: Double = {
     Util.sumLineItems(lineItems)
   }
