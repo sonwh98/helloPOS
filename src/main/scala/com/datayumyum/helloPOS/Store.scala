@@ -40,18 +40,18 @@ object Store {
           val components = p.getJSONArray("product/components")
           val ingredients = (0 until components.length()).map { index =>
             val c = components.getJSONObject(index)
-            Product(name = c.getString("product/name"),
+            Product(uuid = c.getString("product/uuid"), name = c.getString("product/name"),
               sku = c.getString("product/sku"),
               imageURL = getUrl(c),
               price = c.getDouble("product/price"), ingredients = None)
           }.toList
 
-          Product(name = p.getString("product/name"),
+          Product(uuid = p.getString("product/uuid"), name = p.getString("product/name"),
             sku = p.getString("product/sku"),
             imageURL = getUrl(p),
             price = p.getDouble("product/price"), ingredients = Some(ingredients))
         } else {
-          Product(name = p.getString("product/name"),
+          Product(uuid = p.getString("product/uuid"), name = p.getString("product/name"),
             sku = p.getString("product/sku"),
             imageURL = getUrl(p),
             price = p.getDouble("product/price"), ingredients = None)
@@ -72,7 +72,7 @@ object Store {
   }
 
   def findById(id: String): Store = {
-    val storeJsonStr: String = Source.fromInputStream(new URL(s"http://hive.kaicode.com:3000/pos/store/${id}").openStream).mkString
+    val storeJsonStr: String = Source.fromInputStream(new URL(s"http://localhost:3000/pos/store/${id}").openStream).mkString
     Store.from(storeJsonStr)
   }
 }
