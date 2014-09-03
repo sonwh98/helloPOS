@@ -4,7 +4,7 @@ case class LineItem(quantity: Int, product: Product, var customIngredients: Opti
   def toEdn(): String = {
     s"""{:quantity ${quantity}
       | :product/uuid ${product.uuid}
-      | :line-item/component-ids [${customIngredients.getOrElse(List()).map { product => product.uuid}.mkString(" ")}]
+      | :line-item/component-ids [${customIngredients.getOrElse(List()).map { product => f"""\"${product.uuid}\"""" }.mkString(" ")}]
       |
     """.stripMargin
   }
