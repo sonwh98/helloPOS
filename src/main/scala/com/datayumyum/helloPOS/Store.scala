@@ -6,7 +6,7 @@ import org.json._
 
 import scala.io.Source
 
-case class Store(name: String, address: Address, phone: String, url: String, catalog: Map[String, List[Product]]) {
+case class Store(uuid: String, name: String, address: Address, phone: String, url: String, catalog: Map[String, List[Product]]) {
   override def toString(): String = {
     name + "\n" + address.toString() + "\n" + phone + "\n" + url
   }
@@ -63,7 +63,7 @@ object Store {
 
     val addr = jsonObject.getJSONObject("address")
     val address = new Address(line1 = addr.getString("address/line1"), city = addr.getString("address/city"), state = addr.getString("address/state"), zip = addr.getString("address/zip"))
-    val store = Store(name = jsonObject.getString("store/name"),
+    val store = Store(uuid = jsonObject.getString("store/uuid"), name = jsonObject.getString("store/name"),
       address = address,
       phone = jsonObject.getString("phone"),
       url = jsonObject.getString("url"),
