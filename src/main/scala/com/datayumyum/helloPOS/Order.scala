@@ -14,7 +14,7 @@ case class Order(store: Store, lineItems: List[LineItem]) {
   }
 
   def toEdn(): String = {
-    s"""{:store/uuid \"${store.uuid}\"
+    s"""{:store/uuid #uuid \"${store.uuid}\"
          :order/line-items [${lineItems.map{lineItem=>lineItem.toEdn()}.mkString(" ")}] }
     """
   }
