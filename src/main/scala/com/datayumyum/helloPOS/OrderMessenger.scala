@@ -8,6 +8,7 @@ import com.rabbitmq.client.{MessageProperties, Channel, Connection, ConnectionFa
 object OrderMessenger {
   val factory = new ConnectionFactory()
   factory.setHost("hive.kaicode.com")
+//  factory.setHost("localhost")
   factory.setPort(5672)
   factory.setUsername("order")
   factory.setPassword("EisKisP1")
