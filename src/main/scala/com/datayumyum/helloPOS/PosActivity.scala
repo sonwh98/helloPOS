@@ -6,7 +6,7 @@ import java.util.Locale
 import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.animation.{ArgbEvaluator, ValueAnimator}
 import android.app.{Activity, AlertDialog}
-import android.content.DialogInterface
+import android.content.{Intent, DialogInterface}
 import android.content.DialogInterface.OnMultiChoiceClickListener
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +21,7 @@ import scala.collection.mutable
 class PosActivity extends Activity {
   val TAG = "com.datayumyum.pos.PosActivity"
   val currencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
+  lazy val userEmail = getIntent().getExtras().getString(Intent.EXTRA_EMAIL)
   lazy val store = Store.findById("17592186045418")
   lazy val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
   lazy val lineItemListView: ListView = findViewById(R.id.lineItemListView).asInstanceOf[ListView]

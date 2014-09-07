@@ -33,6 +33,7 @@ class LoginActivity extends Activity {
       val password = passwordEditText.getText()
       if (email.length() == 0 && password.length() == 0) {
         val intent = new Intent(LoginActivity.this, classOf[PosActivity]);
+        intent.putExtra(Intent.EXTRA_EMAIL, "default@hellopos.com")
         startActivity(intent)
       } else {
         val url: String = s"http://hive.kaicode.com:3000/pos/authenticate?email=$email&password=$password"
@@ -47,6 +48,7 @@ class LoginActivity extends Activity {
             if (result == "true") {
               Log.e(TAG, result)
               val intent = new Intent(LoginActivity.this, classOf[PosActivity]);
+              intent.putExtra(Intent.EXTRA_EMAIL, email)
               startActivity(intent)
             } else {
               Log.w(TAG, failedMsg)
