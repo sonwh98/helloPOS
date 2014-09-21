@@ -18,16 +18,16 @@ object Util {
   lazy val handler = new Handler(Looper.getMainLooper)
   lazy val mainUiThread = Looper.getMainLooper.getThread
 
-  def uiThread[T >: Null](f: => T): T = {
+  def uiThread(f: => Unit): Unit = {
     if (mainUiThread == Thread.currentThread) {
-      return f
+      f
     } else {
       handler.post(new Runnable() {
         def run() {
           f
         }
       })
-      return null
+
     }
   }
 
