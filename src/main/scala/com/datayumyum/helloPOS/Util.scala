@@ -1,5 +1,6 @@
 package com.datayumyum.helloPOS
 
+import android.app.Activity
 import android.os.{Handler, Looper}
 
 object Util {
@@ -37,5 +38,9 @@ object Util {
     }
   })).start
 
+  //overloading this operator might be a bad idea because people might not understand the symbol
+  def <=[V](id: Int)(implicit activity: Activity): V = {
+    activity.findViewById(id).asInstanceOf[V]
+  }
 
 }

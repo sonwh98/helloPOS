@@ -17,14 +17,18 @@ import com.datayumyum.helloPOS.EventHandlers._
 import com.datayumyum.helloPOS.Util.{thread, uiThread}
 
 import scala.collection.mutable
+import com.datayumyum.helloPOS.Util.<=
 
 class PosActivity extends Activity {
   val TAG = "com.datayumyum.pos.PosActivity"
+
   val currencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
   lazy val userEmail = getIntent().getExtras().getString(Intent.EXTRA_EMAIL)
   lazy val store = Store.findById("17592186045418")
-  lazy val gridView: GridView = findViewById(R.id.gridview).asInstanceOf[GridView]
-  lazy val lineItemListView: ListView = findViewById(R.id.lineItemListView).asInstanceOf[ListView]
+
+  implicit val activity = PosActivity.this
+  lazy val gridView: GridView = <=(R.id.gridview)
+  lazy val lineItemListView: ListView = <=(R.id.lineItemListView)
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -41,7 +45,7 @@ class PosActivity extends Activity {
       uiThread {
         gridView.setAdapter(gridAdapters("Sandwiches"))
 
-        val categoryContainer = findViewById(R.id.categoryContainer).asInstanceOf[LinearLayout]
+        val categoryContainer: LinearLayout = <=(R.id.categoryContainer)
         catalog.keySet.toList.sortWith { (a: String, b: String) => a.compareTo(b) < 0}.foreach((category: String) => {
           val categoryButton: Button = new Button(getApplicationContext())
           categoryButton.setText(category)
@@ -116,14 +120,14 @@ class PosActivity extends Activity {
       val buttonIdList = List(R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7,
         R.id.button8, R.id.button9, R.id.decimalButton)
       buttonIdList.foreach { id =>
-        val button = findViewById(id).asInstanceOf[Button]
+        val button: Button = <=(id)
         button.onClick {
           Accumulator.push(button.getText().toString())
         }
       }
       val allButtons = buttonIdList ++ List(R.id.clearButton, R.id.cashButton, R.id.creditButton)
       allButtons.foreach { id =>
-        val button = findViewById(id).asInstanceOf[Button]
+        val button: Button = <=(id)
         button.setPadding(50, 50, 50, 50)
       }
 
@@ -142,8 +146,8 @@ class PosActivity extends Activity {
         ShoppingCart.checkout()
       }
 
-      val cashButton = findViewById(R.id.cashButton)
-      val creditButton = findViewById(R.id.creditButton)
+      val cashButton: Button = <=(R.id.cashButton)
+      val creditButton: Button = <=(R.id.creditButton)
 
       cashButton.onClick {
         submitOrder()

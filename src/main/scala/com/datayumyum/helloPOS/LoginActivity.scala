@@ -11,15 +11,19 @@ import android.widget.{Button, EditText, Toast}
 import com.datayumyum.helloPOS.EventHandlers.ViewOnEventHandlers
 import com.datayumyum.helloPOS.Util.uiThread
 
+
 import scala.concurrent._
 import scala.io.Source
 
 class LoginActivity extends Activity {
   val TAG = "com.datayumyum.helloPOS.LoginActivity"
 
-  lazy val loginButton: Button = findViewById(R.id.loginSubmitButton).asInstanceOf[Button]
-  lazy val emailEditText: EditText = findViewById(R.id.email).asInstanceOf[EditText]
-  lazy val passwordEditText: EditText = findViewById(R.id.password).asInstanceOf[EditText]
+  import com.datayumyum.helloPOS.Util.<=
+
+  implicit val activity = LoginActivity.this
+  lazy val loginButton: Button = <=(R.id.loginSubmitButton)
+  lazy val emailEditText: EditText = <=(R.id.email)
+  lazy val passwordEditText: EditText = <=(R.id.password)
 
   implicit val exec = ExecutionContext.fromExecutor(
     new ThreadPoolExecutor(100, 100, 1000, TimeUnit.SECONDS,
