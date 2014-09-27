@@ -240,7 +240,7 @@ class PosActivity extends Activity {
   object ShoppingCart extends BaseAdapter {
     val lineItems = new mutable.ArrayBuffer[LineItem]()
     val lineItemViews = mutable.MutableList.empty[View]
-    val lineItemListView = findViewById(R.id.lineItemListView).asInstanceOf[ListView]
+    val lineItemListView: ListView = inject(R.id.lineItemListView)
     val TAG = "com.datayumyum.pos.ShoppingCart"
     val inflater: LayoutInflater = getLayoutInflater()
     var reset: Boolean = true
@@ -374,7 +374,7 @@ class PosActivity extends Activity {
 
   object Accumulator {
     var value: String = ""
-    val display: TextView = findViewById(R.id.accumulatorDisplay).asInstanceOf[TextView]
+    val display: TextView = inject(R.id.accumulatorDisplay)
 
     def push(data: String) {
       value = value + data
