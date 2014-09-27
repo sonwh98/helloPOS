@@ -38,8 +38,8 @@ object Util {
     }
   })).start
 
-  //overloading this operator might be a bad idea because people might not understand the symbol
-  def <=[V](id: Int)(implicit activity: Activity): V = {
+  //view injection like butterknife and dagger without the bloat
+  def inject[V](id: Int)(implicit activity: Activity): V = {
     activity.findViewById(id).asInstanceOf[V]
   }
 

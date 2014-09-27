@@ -17,7 +17,7 @@ import com.datayumyum.helloPOS.EventHandlers._
 import com.datayumyum.helloPOS.Util.{thread, uiThread}
 
 import scala.collection.mutable
-import com.datayumyum.helloPOS.Util.<=
+import com.datayumyum.helloPOS.Util.inject
 
 class PosActivity extends Activity {
   val TAG = "com.datayumyum.pos.PosActivity"
@@ -27,8 +27,8 @@ class PosActivity extends Activity {
   lazy val store = Store.findById("17592186045418")
 
   implicit val activity = PosActivity.this
-  lazy val gridView: GridView = <=(R.id.gridview)
-  lazy val lineItemListView: ListView = <=(R.id.lineItemListView)
+  lazy val gridView: GridView = inject(R.id.gridview)
+  lazy val lineItemListView: ListView = inject(R.id.lineItemListView)
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
@@ -45,7 +45,7 @@ class PosActivity extends Activity {
       uiThread {
         gridView.setAdapter(gridAdapters("Sandwiches"))
 
-        val categoryContainer: LinearLayout = <=(R.id.categoryContainer)
+        val categoryContainer: LinearLayout = inject(R.id.categoryContainer)
         catalog.keySet.toList.sortWith { (a: String, b: String) => a.compareTo(b) < 0}.foreach((category: String) => {
           val categoryButton: Button = new Button(getApplicationContext())
           categoryButton.setText(category)
@@ -120,14 +120,14 @@ class PosActivity extends Activity {
       val buttonIdList = List(R.id.button0, R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7,
         R.id.button8, R.id.button9, R.id.decimalButton)
       buttonIdList.foreach { id =>
-        val button: Button = <=(id)
+        val button: Button = inject(id)
         button.onClick {
           Accumulator.push(button.getText().toString())
         }
       }
       val allButtons = buttonIdList ++ List(R.id.clearButton, R.id.cashButton, R.id.creditButton)
       allButtons.foreach { id =>
-        val button: Button = <=(id)
+        val button: Button = inject(id)
         button.setPadding(50, 50, 50, 50)
       }
 
@@ -146,8 +146,8 @@ class PosActivity extends Activity {
         ShoppingCart.checkout()
       }
 
-      val cashButton: Button = <=(R.id.cashButton)
-      val creditButton: Button = <=(R.id.creditButton)
+      val cashButton: Button = inject(R.id.cashButton)
+      val creditButton: Button = inject(R.id.creditButton)
 
       cashButton.onClick {
         submitOrder()

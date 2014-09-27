@@ -18,12 +18,12 @@ import scala.io.Source
 class LoginActivity extends Activity {
   val TAG = "com.datayumyum.helloPOS.LoginActivity"
 
-  import com.datayumyum.helloPOS.Util.<=
+  import com.datayumyum.helloPOS.Util.inject
 
   implicit val activity = LoginActivity.this
-  lazy val loginButton: Button = <=(R.id.loginSubmitButton)
-  lazy val emailEditText: EditText = <=(R.id.email)
-  lazy val passwordEditText: EditText = <=(R.id.password)
+  lazy val loginButton: Button = inject(R.id.loginSubmitButton)
+  lazy val emailEditText: EditText = inject(R.id.email)
+  lazy val passwordEditText: EditText = inject(R.id.password)
 
   implicit val exec = ExecutionContext.fromExecutor(
     new ThreadPoolExecutor(100, 100, 1000, TimeUnit.SECONDS,
