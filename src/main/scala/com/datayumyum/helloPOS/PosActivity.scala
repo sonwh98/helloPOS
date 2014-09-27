@@ -1,23 +1,26 @@
 package com.datayumyum.helloPOS
 
+import java.io.BufferedInputStream
+import java.net.URL
 import java.text.NumberFormat
 import java.util.Locale
 
 import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.animation.{ArgbEvaluator, ValueAnimator}
 import android.app.{Activity, AlertDialog}
-import android.content.{Intent, DialogInterface}
 import android.content.DialogInterface.OnMultiChoiceClickListener
+import android.content.{DialogInterface, Intent}
+import android.graphics.{Bitmap, BitmapFactory}
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup.LayoutParams
 import android.view._
 import android.widget._
 import com.datayumyum.helloPOS.EventHandlers._
-import com.datayumyum.helloPOS.Util.{thread, uiThread}
+import com.datayumyum.helloPOS.Util.{inject, executor, thread, uiThread}
 
 import scala.collection.mutable
-import com.datayumyum.helloPOS.Util.inject
+import scala.concurrent.Future
 
 class PosActivity extends Activity {
   val TAG = "com.datayumyum.pos.PosActivity"
@@ -171,7 +174,19 @@ class PosActivity extends Activity {
       val imageButton: ImageButton = itemButton.findViewById(R.id.item_image_button).asInstanceOf[ImageButton]
       val itemLabel: TextView = itemButton.findViewById(R.id.item_label).asInstanceOf[TextView]
 
-      new DownloadImageTask(imageButton).execute(item.imageURL)
+
+
+      val downloadImage: Future[Bitmap] = Future {
+        val inputStream: BufferedInputStream = new BufferedInputStream(new URL(item.imageURL).openStream)
+        BitmapFactory.decodeStream(inputStream)
+      }
+      downloadImage.onSuccess {
+        case bitMap =>
+          uiThread {
+            imageButton.setImageBitmap(bitMap)
+          }
+      }
+
       val itemClickHandler = (event: MotionEvent) => {
         val actionType = event.getAction
         actionType match {
