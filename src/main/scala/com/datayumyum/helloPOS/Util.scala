@@ -1,9 +1,15 @@
 package com.datayumyum.helloPOS
 
+import java.util.concurrent.{LinkedBlockingQueue, ThreadPoolExecutor, TimeUnit}
+
 import android.app.Activity
 import android.os.{Handler, Looper}
 
+import scala.concurrent.{ExecutionContext, ExecutionContextExecutor}
+
 object Util {
+  implicit lazy val executor: ExecutionContextExecutor = ExecutionContext.fromExecutor(new ThreadPoolExecutor(100, 100, 1000, TimeUnit.SECONDS, new LinkedBlockingQueue[Runnable]))
+
   def sumLineItems(lineItems: Seq[LineItem]): Double = {
     lineItems.map {
       case lineItem: LineItem => {
